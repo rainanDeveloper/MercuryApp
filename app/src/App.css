@@ -1,0 +1,12 @@
+
+.header {
+	width: 100%;
+	padding: 2%;
+	background-color: burlywood;
+	color: white;
+	text-align: center;
+}
+
+.mrgnbtm {
+	margin-top: 20px;
+}
