@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "./dist/server.js",
 	"scripts": {
-		"start": "dist/server.js",
+		"start": "node ./dist/server.js",
+		"postinstall": "tsc",
 		"build": "tsc",
 		"dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/server.ts"
 	},

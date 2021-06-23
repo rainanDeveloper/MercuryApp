@@ -6,7 +6,7 @@ const app = express()
 const port = process.env.APP_PORT || 80;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../app/build')));
+app.use('/', express.static('../app/build'));
 
 // Serve api routes under /api
 // Example
