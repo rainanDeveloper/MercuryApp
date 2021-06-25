@@ -9,5 +9,20 @@ module.exports = {
 	host: process.env.DB_HOST,
 	port: process.env.DB_PORT||3306,
 	dialect: process.env.DB_DIALECT || 'sqlite',
-	storage: process.env.DB_STORAGE_FILE || 'src/db/database'
+	storage: process.env.DB_STORAGE_FILE || 'src/db/database',
+    migrationStorageTableName: "sequelize_meta",
+    seederStorage: "sequelize",
+	seederStorageTableName: "sequelize_data",
+	timezone: "-03:00",
+	dialectOptions: {
+		dateStrings: true,
+		typeCast: true
+	},
+	operatorAliases: false,
+	logging: process.env.DB_LOGGING||false,
+	define:{
+		timestamps: true,
+		undescored: true,
+		undescoredAll: true
+	}
 }
