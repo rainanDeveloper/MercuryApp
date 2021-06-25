@@ -30,18 +30,13 @@ yarn install
 
 ## Installing the Database
 
-On the api directory, create ``.env`` file:
+Run the following command to create the default database:
 
-```bash
-touch .env
+```
+npx sequelize-cli db:migrate
 ```
 
-Edit the ``.env`` file and add the following lines:
-
-```ini
-DB_STORAGE_FILE=src/db/database
-DB_DIALECT=sqlite
-```
+This will create a sqlite database on ``db/`` with the name ``database.sqlite``.
 
 ## Running application
 

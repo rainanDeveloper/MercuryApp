@@ -20,8 +20,8 @@
 		"baseUrl": "./src/",
 		"paths": {
 			"@controllers/*": ["controllers/*"],
-			"@models/*": ["models/*"],
-			"@config/*": ["config/*"]
-		}    
+			"@models/*": ["src/sequelize/app/models/*"],
+			"@sequelize_config/*": ["src/sequelize/app/config/*"]
+		}
 	}
 }
