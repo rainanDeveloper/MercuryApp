@@ -1,6 +1,5 @@
-# General Backend api for React applications
+# Mercury Api
 
-## Guidelines
+## Installation
 
-- Edit server.js file
-- Add your logic under ``./src`` folder
+Follow instructions on [Github page](https://github.com/rainanDeveloper/MercuryApp)

@@ -28,6 +28,21 @@ Then do the same on the ``api`` folder:
 yarn install
 ```
 
+## Installing the Database
+
+On the api directory, create ``.env`` file:
+
+```bash
+touch .env
+```
+
+Edit the ``.env`` file and add the following lines:
+
+```ini
+DB_STORAGE_FILE=src/db/database
+DB_DIALECT=sqlite
+```
+
 ## Running application
 
 In the folder ``/api`` run:
