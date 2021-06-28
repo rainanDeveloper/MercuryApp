@@ -7,7 +7,7 @@ interface IUserAttributes {
 	login: string
 	password: string
 	email: string,
-	status: number
+	status?: number
 }
 
 interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
@@ -42,7 +42,8 @@ const User = sequelize.define<IUserInstance>(
 		},
 		status: {
 			type: DataTypes.INTEGER,
-			allowNull: false
+			allowNull: false,
+			defaultValue: 0
 		}
 	},
 	{
@@ -50,4 +51,4 @@ const User = sequelize.define<IUserInstance>(
 	}
 )
 
-export {User}
+export {User, IUserInstance}
