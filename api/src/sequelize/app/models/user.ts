@@ -47,4 +47,4 @@ const User = sequelize.define<IUserInstance>(
 	}
 )
 
-export default User
+export {User}
