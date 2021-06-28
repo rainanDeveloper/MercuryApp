@@ -44,6 +44,9 @@ const User = sequelize.define<IUserInstance>(
 			type: DataTypes.INTEGER,
 			allowNull: false
 		}
+	},
+	{
+		tableName: 'users'
 	}
 )
 

@@ -3,7 +3,10 @@ import { User } from '@models/user'
 describe('User', ()=>{
 	test('It should return a user array', async ()=>{
 		const users = await User.findAll()
-	
-		expect(typeof users).toBe('object')
+		
+		
+		expect(typeof users).toEqual('object')
+		expect(users.length).toBeGreaterThanOrEqual(0)
+
 	})
 })
