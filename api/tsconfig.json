@@ -19,9 +19,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": "./src/",
 		"paths": {
-			"@controllers/*": ["controllers/*"],
-			"@models/*": ["src/sequelize/app/models/*"],
-			"@sequelize_config/*": ["src/sequelize/app/config/*"]
+			"@controllers/*": ["./controllers/*"],
+			"@models/*": ["./sequelize/app/models/*"],
+			"@sequelize_config/*": ["./sequelize/app/config/*"]
 		}
 	}
 }
