@@ -7,9 +7,9 @@
 		"outDir": "./dist",                             
 		"rootDir": "./src",
 		"removeComments": true,
-		"typeRoots": [
-			"./node_modules/@types",
-			"./src/@types"
+		"types": [
+			"jest",
+			"node"
 		],
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
@@ -23,5 +23,9 @@
 			"@models/*": ["./sequelize/app/models/*"],
 			"@sequelize_config/*": ["./sequelize/app/config/*"]
 		}
-	}
+	},
+	"exclude": [
+		"./dist",
+		"jest.config.js"
+	]
 }
