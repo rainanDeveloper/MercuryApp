@@ -2,7 +2,6 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import {sequelize} from '.'
 import { hash } from 'bcrypt'
-import { password } from '@sequelize_config/config'
 
 interface IUserAttributes {
 	id: number
@@ -15,8 +14,8 @@ interface IUserAttributes {
 interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
 
 interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>, IUserAttributes {
-	createdAt?: Date;
-	updatedAt?: Date;
+	createdAt?: Date
+	updatedAt?: Date
 }
 
 const User = sequelize.define<IUserInstance>(
