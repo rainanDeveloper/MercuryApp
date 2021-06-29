@@ -1,5 +1,8 @@
 import { createTransport } from 'nodemailer'
 
+require('dotenv').config({
+	path: '.env'
+})
 
 interface IMail {
 	from: string
@@ -16,11 +19,11 @@ const pass		= process.env.MAILER_PASS
 const secure	= process.env.MAILER_SECURE
 
 const transporter = createTransport({
-	host: host && 'smtp.example.com',
+	host: host || 'smtp.example.com',
 	port: port && 587,
 	auth: {
-		user: user && 'test@example.com',
-		pass: pass && '123456'
+		user: user || 'test@example.com',
+		pass: pass || '123456'
 	},
 	secure: secure && true
 })

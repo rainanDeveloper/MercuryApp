@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { User } from '@models/user'
+import { IMail, transporter } from 'services/nodemailer.service'
 
 const UserController = {
 
@@ -19,11 +20,26 @@ const UserController = {
 		} = request.body
 
 		try{
+
+			// Creates a user
+
 			const userCreated = await User.create({
 				login,
 				password,
 				email
 			})
+
+			// If user is successfully created, sends an email to the user
+
+			const message: IMail = {
+				to: `${login} <${email}>`,
+				from: 'MercuryApp <contact@mercuryapp.com>',
+				subject: 'User account activation',
+				text: 'Activate your account',
+				html: '<p>Activate your account</p>'
+			}
+
+			await transporter.sendMail(message)
 
 			return response.json(userCreated)
 		}
