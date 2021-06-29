@@ -1,6 +1,8 @@
 'use strict'
 import { DataTypes, Model, Optional } from 'sequelize'
 import {sequelize} from '.'
+import { hash } from 'bcrypt'
+import { password } from '@sequelize_config/config'
 
 interface IUserAttributes {
 	id: number
@@ -47,7 +49,14 @@ const User = sequelize.define<IUserInstance>(
 		}
 	},
 	{
-		tableName: 'users'
+		tableName: 'users',
+		hooks: {
+			beforeSave: async (user: IUserInstance) => {
+				if(user.password){
+					user.password = await hash( user.password, 8)
+				}
+			}
+		}
 	}
 )
 

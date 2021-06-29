@@ -6,7 +6,15 @@ import { factory } from '../factories'
 
 
 describe("UserRoutes", () => {
+	beforeEach(async ()=>{
+		await User.destroy({
+			truncate: true,
+			force: true
+		})
+	})
+
 	it('should create a user',async ()=>{
+		
 		const response = await request(app)
 		.post('/user')
 		.send({
