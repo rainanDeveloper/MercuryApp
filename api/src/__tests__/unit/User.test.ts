@@ -1,5 +1,5 @@
 import { User, IUserInstance } from '@models/user'
-import { factory } from '../factories';
+import { factory } from '../factories'
 
 describe('User', ()=>{
 	test('It should create a user', async ()=>{
