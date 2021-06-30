@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { User } from '@models/user'
 import { IMail, transporter } from 'services/nodemailer.service'
+import { sequelize } from '@models/index'
 
 const UserController = {
 
@@ -19,6 +20,8 @@ const UserController = {
 			email
 		} = request.body
 
+		const transaction = await sequelize.transaction()
+
 		try{
 
 			// Creates a user
@@ -27,7 +30,9 @@ const UserController = {
 				login,
 				password,
 				email
-			})
+			}, {transaction})
+
+			await transaction.commit()
 
 			// If user is successfully created, sends an email to the user
 
@@ -86,6 +91,7 @@ const UserController = {
 			return response.json(userCreated)
 		}
 		catch(error){
+			transaction.rollback()
 			return response.status(500).json({
 				message: `Error during user creation: ${error}`,
 			})
