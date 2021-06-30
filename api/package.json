@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "factory-girl": "^5.0.4",
     "faker": "^5.5.3",
+    "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.6.2",
     "sequelize": "^6.6.2",
     "sqlite3": "^5.0.2",

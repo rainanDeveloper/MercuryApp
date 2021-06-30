@@ -87,8 +87,7 @@ const UserController = {
 		}
 		catch(error){
 			return response.status(500).json({
-				message: `Error during user creation!`,
-				error
+				message: `Error during user creation: ${error}`,
 			})
 		}
 
