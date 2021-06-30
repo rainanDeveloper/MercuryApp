@@ -3,7 +3,7 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.get('/user', UserController.index)
-router.post('/user', UserController.store)
+router.get('/api/user', UserController.index)
+router.post('/api/user', UserController.store)
 
 export { router }
