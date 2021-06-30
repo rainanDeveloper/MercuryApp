@@ -29,7 +29,7 @@ yarn-error.log
 
 # sqlite databases
 
-*.
+*.sqlite
 
 # testing http requests
 

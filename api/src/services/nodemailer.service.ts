@@ -25,7 +25,7 @@ const transporter = createTransport({
 		user: user || 'test@example.com',
 		pass: pass || '123456'
 	},
-	secure: secure && true
+	secure: secure && false
 })
 
 export {

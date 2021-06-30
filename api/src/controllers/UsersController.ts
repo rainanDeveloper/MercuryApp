@@ -33,7 +33,7 @@ const UserController = {
 
 			const message: IMail = {
 				to: `${login} <${email}>`,
-				from: 'MercuryApp <contact@mercuryapp.com>',
+				from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
 				subject: 'User account activation',
 				text: 'Activate your account',
 				html: '<p>Activate your account</p>'
@@ -45,7 +45,8 @@ const UserController = {
 		}
 		catch(error){
 			return response.status(500).json({
-				message: `Error during user creation!`
+				message: `Error during user creation!`,
+				error
 			})
 		}
 
