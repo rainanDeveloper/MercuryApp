@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { User } from '@models/user'
 import { IMail, transporter } from 'services/nodemailer.service'
 import { sequelize } from '@models/index'
+import { JWToken } from 'utils/JWToken'
 
 const UserController = {
 
@@ -35,6 +36,14 @@ const UserController = {
 			await transaction.commit()
 
 			// If user is successfully created, sends an email to the user
+
+			// Create jwt token for confirmation
+
+			const token = new JWToken({}).createToken({login, email})
+
+			const link = `http://${request.hostname}/user/confirmation/${token}`
+
+			console.log(link)
 
 			// html content
 
