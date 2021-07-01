@@ -1,8 +1,7 @@
 import request from 'supertest'
 import { app } from '../../app'
 
-import { User, IUserInstance } from '@models/user'
-import { factory } from '../factories'
+import { User } from '@models/user'
 
 
 describe("UserRoutes", () => {
@@ -16,7 +15,7 @@ describe("UserRoutes", () => {
 	it('should create a user',async ()=>{
 		
 		const response = await request(app)
-		.post('/user')
+		.post('/api/user')
 		.send({
 			login: 'Login',
 			password: '123456',
@@ -30,5 +29,20 @@ describe("UserRoutes", () => {
 		expect(response.body).toHaveProperty('email')
 		expect(response.body).toHaveProperty('createdAt')
 		expect(response.body).toHaveProperty('updatedAt')
+	})
+
+	it('should list users, including new user created', async ()=>{
+		await request(app)
+		.post('/api/user')
+		.send({
+			login: 'Login1',
+			password: '123456',
+			email: 'test1@test.example'
+		})
+
+		const response = await request(app)
+		.get('/api/user')
+
+		expect(response.status).toBe(200)
 	})
 })

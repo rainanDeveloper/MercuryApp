@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { User } from '@models/user'
-import { IMail, transporter } from 'services/nodemailer.service'
+import { IMail, transporter } from '../services/nodemailer.service'
 import { sequelize } from '@models/index'
-import { JWToken } from 'utils/JWToken'
+import { JWToken } from '../utils/JWToken'
 
 const UserController = {
 
@@ -42,8 +42,6 @@ const UserController = {
 			const token = new JWToken({}).createToken({login, email})
 
 			const link = `http://${request.hostname}/user/confirmation/${token}`
-
-			console.log(link)
 
 			// html content
 
@@ -100,7 +98,20 @@ const UserController = {
 			return response.json(userCreated)
 		}
 		catch(error){
-			transaction.rollback()
+			const newUser = await User.findOne({
+				where: {
+					login
+				}
+			})
+			if(newUser){
+				await newUser.destroy()
+			}
+			else{
+				transaction.rollback()
+			}
+
+
+
 			return response.status(500).json({
 				message: `Error during user creation: ${error}`,
 			})
