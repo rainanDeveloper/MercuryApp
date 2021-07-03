@@ -20,12 +20,12 @@ const secure	= process.env.MAILER_SECURE
 
 const transporter = createTransport({
 	host: host || 'smtp.example.com',
-	port: port && 587,
+	port: parseInt(port) || 587,
 	auth: {
 		user: user || 'test@example.com',
 		pass: pass || '123456'
 	},
-	secure: secure && false
+	secure: secure=='true'
 })
 
 export {
