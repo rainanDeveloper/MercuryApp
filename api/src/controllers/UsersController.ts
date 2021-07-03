@@ -85,15 +85,17 @@ const UserController = {
 				</body>
 			</html>`
 
-			const message: IMail = {
-				to: `<${email}>`,
-				from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
-				subject: 'User account activation',
-				text: 'Activate your account: ',
-				html
-			}
+			// const message: IMail = {
+			// 	to: `<${email}>`,
+			// 	from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
+			// 	subject: 'User account activation',
+			// 	text: 'Activate your account: ',
+			// 	html
+			// }
 
-			await transporter.sendMail(message)
+			// await transporter.sendMail(message)
+
+			// Email message sending implementation was postponed
 
 			return response.json(userCreated)
 		}
@@ -114,6 +116,7 @@ const UserController = {
 
 			return response.status(500).json({
 				message: `Error during user creation: ${error}`,
+				error
 			})
 		}
 
