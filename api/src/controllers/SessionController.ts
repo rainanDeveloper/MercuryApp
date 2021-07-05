@@ -27,13 +27,13 @@ const SessionController = {
 			})
 
 			if(!user){
-				return response.status(400).json({
+				return response.status(401).json({
 					message: `Incorrect login or password!`
 				})
 			}
 
 			if(!(await user.validatePassword(password))){
-				return response.status(400).json({
+				return response.status(401).json({
 					message: `Incorrect login or password!`
 				})
 			}
@@ -46,13 +46,13 @@ const SessionController = {
 				})
 			}
 			else{
-				return response.status(400).json({
+				return response.status(500).json({
 					message: `Error while trying to autenticate user!`
 				})
 			}
 		}
 		catch(error){
-			return response.status(400).json({
+			return response.status(500).json({
 				message: `Error while trying to autenticate user!`
 			})
 		}
