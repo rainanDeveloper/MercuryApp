@@ -20,7 +20,7 @@ describe('Authentication routes', ()=>{
 		})
 
 		const response = await request(app)
-		.post('/login')
+		.post('/api/login')
 		.send({
 			login: user.login,
 			password: '123456'
