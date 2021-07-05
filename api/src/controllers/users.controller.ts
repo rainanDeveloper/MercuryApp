@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { User } from '@models/user'
-import { IMail, transporter } from '../services/nodemailer.service'
+// import { IMail, transporter } from '../services/nodemailer.service'
 import { sequelize } from '@models/index'
-import { JWToken } from '../utils/JWToken'
+// import { JWToken } from '../utils/JWToken'
 
 const UserController = {
 
