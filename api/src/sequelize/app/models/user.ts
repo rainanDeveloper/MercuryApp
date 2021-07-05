@@ -1,13 +1,13 @@
 'use strict'
 import { DataTypes, Model, Optional } from 'sequelize'
 import {sequelize} from '.'
-import { hash } from 'bcrypt'
+import { hash, compare } from 'bcrypt'
 
 interface IUserAttributes {
 	id: number
 	login: string
 	password: string
-	email: string,
+	email: string
 	status?: number
 }
 
@@ -16,6 +16,7 @@ interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
 interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>, IUserAttributes {
 	createdAt?: Date
 	updatedAt?: Date
+	validatePassword: Function
 }
 
 const User = sequelize.define<IUserInstance>(
@@ -58,5 +59,9 @@ const User = sequelize.define<IUserInstance>(
 		}
 	}
 )
+
+User.prototype.validatePassword = function(password: string){
+	return compare(password, this.password)
+}
 
 export {User, IUserInstance}
