@@ -1,14 +1,14 @@
 import React from 'react'
 import { ChatlistItem } from './ChatlistItem'
 
-const Chatlist = ()=>{
+const Chatlist = ({chatList=[]})=>{
 	return <section>
 		<ul>
-			<li>
-				<ChatlistItem>
-
-				</ChatlistItem>
-			</li>
+			{chatList.map((chat,i)=>{
+				return <li>
+					<ChatlistItem chat={chat}/>
+				</li>
+			})}
 		</ul>
 	</section>
 }

@@ -7,9 +7,7 @@ function Home() {
 	return (
 		<div className="Home">
 			<div className="container mrgnbtm">
-				<Chatlist>
-					
-				</Chatlist>
+				<Chatlist chatList={[{title: 'Duck', profilePicUrl:"https://duckduckgo.com/assets/logo_header.alt.v108.svg"}]}/>
 			</div>
 			<footer>
 				
