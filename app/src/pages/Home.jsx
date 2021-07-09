@@ -1,5 +1,5 @@
 import React from 'react'
-import {Chatlist} from '../components/ChatList/index'
+import {Chatlist} from '../components/ChatList/index.jsx'
 
 function Home() {
 	
