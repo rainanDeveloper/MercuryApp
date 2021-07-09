@@ -1,16 +1,15 @@
 import React from 'react'
+import { StyledChatList } from '../../styles/components/StyledChatList'
 import { ChatlistItem } from './ChatlistItem'
 
 const Chatlist = ({chatList=[]})=>{
-	return <section>
-		<ul>
+	return <StyledChatList>
 			{chatList.map((chat,i)=>{
 				return <li>
 					<ChatlistItem chat={chat}/>
 				</li>
 			})}
-		</ul>
-	</section>
+		</StyledChatList>
 }
 
 export {Chatlist}
