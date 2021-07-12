@@ -22,17 +22,24 @@ html, body {
 input, button {
 	padding: 8px 10px;
 	border-radius: 5px;
-	border: none;
+	border: solid 1px #e4e4e4;
 	background-color: white;
 }
 
 button {
 	background-color: #2ecc71;
+	border: solid 1px #27ae60;
 	color: white;
 	font-weight: 600;
 	font-size: 1.1em;
 	cursor: pointer;
 	margin-top: 10px;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in-out;
+}
+
+button:hover {
+	filter: brightness(110%);
 }
 
 .input-group {

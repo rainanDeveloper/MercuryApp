@@ -35,9 +35,9 @@ const StyledLogin = styled.main`
 		display: flex;
 		flex-direction: column;
 		padding: 15px;
-		background-color: #ecf0f1;
+		background-color: #f6f8fa;
 		border-radius: 5px;
-		border: solid 1px #f4f8f9;
+		border: solid 1px #e4e4e4;
 		gap: 10px;
 		font-size: 1em;
 	}
