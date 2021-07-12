@@ -5,16 +5,47 @@ const GlobalStyles = createGlobalStyle`
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font: 400 16px;
+	font-size: 14px;
 	outline: none;
 	font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif
+		sans-serif;
+	font-weight: 300;
 }
 
 html, body {
 	padding: 0;
 	margin: 0;
+	background-color: white;
+}
+
+input, button {
+	padding: 8px 10px;
+	border-radius: 5px;
+	border: solid 1px #e4e4e4;
+	background-color: white;
+}
+
+button {
+	background-color: #2ecc71;
+	border: solid 1px #27ae60;
+	color: white;
+	font-weight: 600;
+	font-size: 1.1em;
+	cursor: pointer;
+	margin-top: 10px;
+	transition-duration: 0.5s;
+	transition-timing-function: ease-in-out;
+}
+
+button:hover {
+	filter: brightness(110%);
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 `
