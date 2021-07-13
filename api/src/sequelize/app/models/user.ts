@@ -51,7 +51,7 @@ const User = sequelize.define<IUserInstance>(
 	{
 		tableName: 'users',
 		hooks: {
-			beforeCreate: async (user: IUserInstance) => {
+			beforeSave: async (user: IUserInstance) => {
 				if(user.password){
 					user.password = await hash( user.password, 8)
 				}
