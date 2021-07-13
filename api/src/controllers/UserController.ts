@@ -40,7 +40,7 @@ const UserController = {
 
 			const token = new JWToken({}).createToken({login, email})
 
-			const link = `http://${request.host}:8080/api/user/confirmation/${token}`
+			const link = `http://${request.host}/api/user/confirmation/${token}`
 
 			// html content
 
