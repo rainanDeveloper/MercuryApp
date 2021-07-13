@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { authenticate } from '../services/LoginService'
 import { StyledLogin } from '../styles/pages/StyledLogin'
 
 const Login = ()=>{
@@ -6,6 +7,7 @@ const Login = ()=>{
 
 	const [login, setLogin]			= useState('')
 	const [password, setPassword]	= useState('')
+	const [loading, setLoading]		= useState(false)
 
 	function handleLoginChange(event){
 		setLogin(event.target.value)
@@ -15,13 +17,27 @@ const Login = ()=>{
 		setPassword(event.target.value)
 	}
 
+	async function handleLoginFormSubmit(event){
+		event.preventDefault()
+
+		setLoading(true)
+
+		const {token} = await authenticate(login, password)
+
+		if(token){
+			localStorage.setItem('authtoken', token)
+		}
+
+		setLoading(false)
+	}
+
 
 	return <StyledLogin>
 		<section className="loginContainer">
 			<header className="loginHeader">
 				<span>Sign in to MercuryApp</span>
 			</header>
-			<form className="login">
+			<form className="login" onSubmit={handleLoginFormSubmit}>
 				<div className="input-group">
 					<label htmlFor="usernameOrEmail">Username or email address</label>
 					<input
@@ -37,7 +53,7 @@ const Login = ()=>{
 					<label htmlFor="password">Password</label>
 					<input type="password" required value={password} onChange={handlePasswordChange}/>
 				</div>
-				<button>Sign In</button>
+				<button>{loading?'Signing In...':'Sign In'}</button>
 			</form>
 		</section>
 		
