@@ -21,13 +21,17 @@ const generateKeyFromData = (data)=>{
 	return [clientKey.getPrivateKey().toString('hex'), clientKey.getPublicKey().toString('hex')]
 }
 
-const generateSharedSecretFromKey = (clientKey, public2)=>{
-	const sharedKey = clientKey.derive(public2)
+const generateSharedSecretFromKeys = (clientPrivateKey, otherPublicKey)=>{
+	const clientKey = crypto.createECDH('secp256k1')
+
+	clientKey.setPrivateKey(clientPrivateKey, 'hex')
+
+	const sharedKey = clientKey.computeSecret(otherPublicKey, 'hex', 'hex')
 
 	return sharedKey
 }
 
 export {
 	generateKeyFromData,
-	generateSharedSecretFromKey
+	generateSharedSecretFromKeys
 }
