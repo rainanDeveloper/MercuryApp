@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
+import { SignUp } from './pages/SignUp'
 
 const Routes = ()=>{
 
@@ -19,6 +20,7 @@ const Routes = ()=>{
             <Switch>
                 <Route exact path="/" component={initialPage}/>
                 <Route exact path="/login" component={Login}/>
+                <Route exact path="/signup" component={SignUp}/>
             </Switch>
         </BrowserRouter>
     )
