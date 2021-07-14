@@ -15,7 +15,7 @@ const StyledSignUp  = styled.main`
 		flex-direction: column;
 		width: 100%;
 		max-width: 350px;
-		margin-top: 5%;
+		margin-top: 5vh;
 	}
 
 	header.signupHeader {
