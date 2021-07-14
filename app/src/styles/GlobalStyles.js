@@ -19,14 +19,14 @@ html, body {
 	background-color: white;
 }
 
-input, button {
+input, button, a {
 	padding: 8px 10px;
 	border-radius: 5px;
 	border: solid 1px #e4e4e4;
 	background-color: white;
 }
 
-button {
+button, a {
 	background-color: #2ecc71;
 	border: solid 1px #27ae60;
 	color: white;
@@ -36,6 +36,11 @@ button {
 	margin-top: 10px;
 	transition-duration: 0.5s;
 	transition-timing-function: ease-in-out;
+}
+
+a {
+	text-decoration: none;
+	margin-top: 0;
 }
 
 button:hover {

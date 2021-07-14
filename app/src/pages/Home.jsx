@@ -1,15 +1,20 @@
 import React from 'react'
-import {Chatlist} from '../components/ChatList/index.jsx'
-import { StyledHome } from '../styles/pages/StyledHome.js'
+import { Link } from 'react-router-dom'
+import { StyledHome } from '../styles/pages/StyledHome'
+
 
 function Home() {
 	
 		
 	return (
 		<StyledHome>
-			<aside>
-				<Chatlist chatList={[{id: 1,  title: 'Duck', profilePicUrl:"https://duckduckgo.com/assets/logo_header.alt.v108.svg"}]}/>
-			</aside>
+			<header>
+				<h1>Mercury App</h1>
+				<div className="initialPageButtons">
+					<Link to="./login">Login</Link>
+					<Link to="./signup">Sign Up</Link>
+				</div>
+			</header>
 		</StyledHome>
 	)
 }
