@@ -4,7 +4,6 @@ import { StyledLogin } from '../styles/pages/StyledLogin'
 import { generateKeyFromData } from '../utils/createECDHPair'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useHistory } from 'react-router-dom';
 
 const Login = ()=>{
 
@@ -12,7 +11,6 @@ const Login = ()=>{
 	const [password, setPassword]	= useState('')
 	const [loading, setLoading]		= useState(false)
 
-	const history = useHistory()
 
 	function handleLoginChange(event){
 		setLogin(event.target.value)
@@ -39,7 +37,7 @@ const Login = ()=>{
 				localStorage.setItem('privateKey', privateKey)
 				localStorage.setItem('publicKey', publicKey)
 
-				history.push('./')
+				window.location.pathname="./"
 			}
 		}
 		catch(error){
