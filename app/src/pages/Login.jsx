@@ -2,18 +2,22 @@ import React, { useState } from 'react'
 import { authenticate } from '../services/LoginService'
 import { StyledLogin } from '../styles/pages/StyledLogin'
 import { generateKeyFromData } from '../utils/createECDHPair'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useHistory } from 'react-router-dom';
 
 const Login = ()=>{
-
 
 	const [login, setLogin]			= useState('')
 	const [password, setPassword]	= useState('')
 	const [loading, setLoading]		= useState(false)
 
+	const history = useHistory()
+
 	function handleLoginChange(event){
 		setLogin(event.target.value)
 	}
-	
+
 	function handlePasswordChange(event){
 		setPassword(event.target.value)
 	}
@@ -28,16 +32,19 @@ const Login = ()=>{
 
 			if(token){
 				localStorage.setItem('authtoken', token)
+				
 				// Generate private and public keys
-
 				const [privateKey, publicKey] = generateKeyFromData({login, password})
 
 				localStorage.setItem('privateKey', privateKey)
 				localStorage.setItem('publicKey', publicKey)
+
+				history.push('./')
 			}
 		}
 		catch(error){
-			
+			console.log(error)
+			toast.error(`Error while trying to Sign In: ${error.message}`, {autoClose: 5000})
 		}
 
 		setLoading(false)
@@ -68,7 +75,7 @@ const Login = ()=>{
 				<button>{loading?'Signing In...':'Sign In'}</button>
 			</form>
 		</section>
-		
+		<ToastContainer />
 	</StyledLogin>
 }
 

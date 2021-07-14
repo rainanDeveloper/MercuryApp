@@ -1,17 +1,17 @@
 import React from 'react'
 import {Chatlist} from '../components/ChatList/index.jsx'
-import { StyledHome } from '../styles/pages/StyledHome.js'
+import { StyledDashboard } from '../styles/pages/StyledDashboard.js'
 
-function Home() {
+function Dashboard() {
 	
 		
 	return (
-		<StyledHome>
+		<StyledDashboard>
 			<aside>
 				<Chatlist chatList={[{id: 1,  title: 'Duck', profilePicUrl:"https://duckduckgo.com/assets/logo_header.alt.v108.svg"}]}/>
 			</aside>
-		</StyledHome>
+		</StyledDashboard>
 	)
 }
 
-export {Home}
+export {Dashboard}

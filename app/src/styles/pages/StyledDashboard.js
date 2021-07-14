@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledHome = styled.main`
+const StyledDashboard = styled.main`
 
 
 	aside {
@@ -11,4 +11,4 @@ const StyledHome = styled.main`
 	}
 `
 
-export { StyledHome }
+export { StyledDashboard }
