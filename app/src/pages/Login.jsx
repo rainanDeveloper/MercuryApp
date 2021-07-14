@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { authenticate } from '../services/LoginService'
 import { StyledLogin } from '../styles/pages/StyledLogin'
+import { generateKeyFromData } from '../utils/createECDHPair'
 
 const Login = ()=>{
 
@@ -22,10 +23,21 @@ const Login = ()=>{
 
 		setLoading(true)
 
-		const {token} = await authenticate(login, password)
+		try{
+			const {token} = await authenticate(login, password)
 
-		if(token){
-			localStorage.setItem('authtoken', token)
+			if(token){
+				localStorage.setItem('authtoken', token)
+				// Generate private and public keys
+
+				const [privateKey, publicKey] = generateKeyFromData({login, password})
+
+				localStorage.setItem('privateKey', privateKey)
+				localStorage.setItem('publicKey', publicKey)
+			}
+		}
+		catch(error){
+			
 		}
 
 		setLoading(false)

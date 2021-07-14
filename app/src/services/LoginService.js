@@ -11,7 +11,7 @@ const authenticate = async (login, password)=>{
 
 		return await response.data
 	} catch (error) {
-		return error
+		throw new Error(error.message)
 	}
 }
 

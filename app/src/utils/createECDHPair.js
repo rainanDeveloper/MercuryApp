@@ -1,6 +1,5 @@
 'use strict'
-const EC = require('elliptic').ec
-const ec = new EC('secp256k1')
+import crypto from 'crypto'
 
 const generateKeyFromData = (data)=>{
 	
@@ -15,9 +14,11 @@ const generateKeyFromData = (data)=>{
 		secret = crypto.createHash('sha256').update(JSON.stringify(data)).digest('hex')
 	}
 
-	const clientKey = ec.keyFromPrivate(secret)
+	const clientKey = crypto.createECDH('secp256k1')
 
-	return clientKey
+	clientKey.setPrivateKey(secret, 'hex')
+
+	return [clientKey.getPrivateKey().toString('hex'), clientKey.getPublicKey().toString('hex')]
 }
 
 const generateSharedSecretFromKey = (clientKey, public2)=>{
@@ -26,7 +27,7 @@ const generateSharedSecretFromKey = (clientKey, public2)=>{
 	return sharedKey
 }
 
-module.exports = {
+export {
 	generateKeyFromData,
 	generateSharedSecretFromKey
 }
