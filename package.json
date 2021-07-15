@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
 	  "start": "cd api && npm run start",
-	  "buildApi": "cd api && npm run build",
-	  "buildApp": "cd app && npm run build",
+	  "buildApi": "cd api && npm install",
+	  "buildApp": "cd app && npm install",
 	  "build": "npm run buildApi && npm run buildApp",
 	  "heroku-postbuild": "npm run build"
   }
