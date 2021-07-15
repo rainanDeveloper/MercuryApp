@@ -41,7 +41,6 @@ const Login = ()=>{
 			}
 		}
 		catch(error){
-			console.log(error)
 			toast.error(`Error while trying to Sign In: ${error.message}`, {autoClose: 5000})
 		}
 
@@ -70,7 +69,7 @@ const Login = ()=>{
 					<label htmlFor="password">Password</label>
 					<input type="password" required value={password} onChange={handlePasswordChange}/>
 				</div>
-				<button>{loading?'Signing In...':'Sign In'}</button>
+				<button disabled={loading}>{loading?'Signing In...':'Sign In'}</button>
 			</form>
 		</section>
 		<ToastContainer />
