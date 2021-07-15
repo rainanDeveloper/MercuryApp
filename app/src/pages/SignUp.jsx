@@ -29,7 +29,7 @@ const SignUp = ()=>{
 	function handlePasswordChange(event){
 		event.preventDefault()
 
-		setPassword(event.target.value)
+		setPassword(event.target.value.replace(/\s?\t?\n?/g, ''))
 
 		if(passwordStrength(event.target.value)<35){
 			event.target.setCustomValidity("Password too weak!")
@@ -42,7 +42,7 @@ const SignUp = ()=>{
 	function handlePasswordConfirmChange(event){
 		event.preventDefault()
 
-		setPasswordConfirm(event.target.value)
+		setPasswordConfirm(event.target.value.replace(/\s?\t?\n?/g, ''))
 	}
 
 	function handlePasswordConfirmBlur(event){
@@ -108,6 +108,7 @@ const SignUp = ()=>{
 					<label htmlFor="password">Password</label>
 					<input
 					type="password"
+					pattern="$[^\s\t\n]+^"
 					id="password"
 					value={password}
 					onChange={handlePasswordChange}
@@ -123,6 +124,7 @@ const SignUp = ()=>{
 					<label htmlFor="password_confirm">Confirm Password</label>
 					<input
 					type="password"
+					pattern="$[^\s\t\n]+^"
 					id="password_confirm"
 					value={passwordConfirm}
 					onChange={handlePasswordConfirmChange}
