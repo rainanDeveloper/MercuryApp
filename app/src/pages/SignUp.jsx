@@ -62,7 +62,7 @@ const SignUp = ()=>{
 		setLoading(true)
 
 		try{
-			const myself = createUser(login, email, password)
+			const myself = await createUser(login, email, password)
 
 			toast.success(`user successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
 		}

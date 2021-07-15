@@ -26,13 +26,14 @@ const Login = ()=>{
 		setLoading(true)
 
 		try{
-			const {token} = await authenticate(login, password)
+			const {token, data} = await authenticate(login, password)
 
 			if(token){
 				localStorage.setItem('authtoken', token)
 				
 				// Generate private and public keys
-				const [privateKey, publicKey] = generateKeyFromData({login, password})
+				const [privateKey, publicKey] = generateKeyFromData({...data, password})
+
 
 				localStorage.setItem('privateKey', privateKey)
 				localStorage.setItem('publicKey', publicKey)
