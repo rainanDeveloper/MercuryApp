@@ -6,10 +6,10 @@
   "author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",
   "license": "MIT",
   "scripts": {
-	  "start": "cd api && yarn start",
-	  "buildApi": "cd api && yarn build",
-	  "buildApp": "cd app && yarn build",
-	  "build": "yarn buildApi && yarn buildApp",
-	  "heroku-postbuild": "yarn build"
+	  "start": "cd api && npm run start",
+	  "buildApi": "cd api && npm run build",
+	  "buildApp": "cd app && npm run build",
+	  "build": "npm run buildApi && npm run buildApp",
+	  "heroku-postbuild": "npm run build"
   }
 }
