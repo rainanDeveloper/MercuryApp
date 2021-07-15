@@ -22,19 +22,6 @@ const passwordStrength = (password)=>{
 
 	// Calculates initial score according with password length
 
-	if(password.length==0){
-		score = 0
-	}
-	else if(password.length < 8){
-		score += 20
-	}
-	else if(password.length < 12){
-		score += 30
-	}
-	else if(password.length >= 12){
-		score += 40
-	}
-
 	var uppercaseCount = matchCount(password, strUpperCase)
 	var lowercaseCount = matchCount(password, strLowerCase)
 	var numberCount = matchCount(password, strNumber)
@@ -42,19 +29,19 @@ const passwordStrength = (password)=>{
 
 
 	if(uppercaseCount>0){
-		score += 15
-	}
-
-	if(lowercaseCount>0){
-		score += 10
+		score += 32 * Math.pow(2, (-1/uppercaseCount))
 	}
 
 	if(numberCount>0){
-		score += 15
+		score += 32 * Math.pow(2, (-1/numberCount))
 	}
 
 	if(charCount>0){
-		score += 20
+		score += 32 * Math.pow(2, (-1/charCount))
+	}
+
+	if(lowercaseCount>0){
+		score += 30 * Math.pow(2, (-1/lowercaseCount))
 	}
 
 	return score
