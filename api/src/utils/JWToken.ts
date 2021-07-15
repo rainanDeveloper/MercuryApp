@@ -28,7 +28,7 @@ class JWToken {
 	}
 
 	validateToken(token){
-		return verify(token, this.secret)
+		return verify(token)
 	}
 }
 
