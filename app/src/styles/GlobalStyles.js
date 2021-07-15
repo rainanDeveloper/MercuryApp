@@ -47,6 +47,11 @@ button:hover {
 	filter: brightness(110%);
 }
 
+
+button:disabled, a:disabled {
+	filter: saturate(85%) brightness(95%);
+}
+
 .input-group {
 	display: flex;
 	flex-direction: column;
