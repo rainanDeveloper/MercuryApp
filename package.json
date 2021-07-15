@@ -9,6 +9,7 @@
 	  "start": "cd api && yarn start",
 	  "buildApi": "cd api && yarn build",
 	  "buildApp": "cd app && yarn build",
-	  "build": "yarn buildApi && yarn buildApp"
+	  "build": "yarn buildApi && yarn buildApp",
+	  "heroku-postbuild": "yarn build"
   }
 }
