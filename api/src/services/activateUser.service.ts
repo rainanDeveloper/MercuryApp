@@ -1,6 +1,6 @@
 import { User } from '@models/user'
 import { Request, Response } from 'express'
-import { JWToken } from 'utils/JWToken'
+import { JWToken } from '../utils/JWToken'
 
 const activateUser = async (request: Request, response: Response)=>{
 	const { token } = request.params

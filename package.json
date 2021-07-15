@@ -1,0 +1,14 @@
+{
+  "name": "MercuryApp",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/rainanDeveloper/MercuryApp.git",
+  "author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",
+  "license": "MIT",
+  "scripts": {
+	  "start": "cd api && yarn start",
+	  "buildApi": "cd api && yarn build",
+	  "buildApp": "cd app && yarn build",
+	  "build": "yarn buildApi && yarn buildApp"
+  }
+}
