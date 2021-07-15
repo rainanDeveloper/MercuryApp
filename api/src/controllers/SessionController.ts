@@ -42,7 +42,11 @@ const SessionController = {
 
 			if(token){
 				return response.json({
-					token
+					token,
+					data: {
+						login: user.login,
+						email: user.email
+					}
 				})
 			}
 			else{
