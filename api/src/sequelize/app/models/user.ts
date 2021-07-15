@@ -6,7 +6,8 @@ import { hash, compare } from 'bcrypt'
 interface IUserAttributes {
 	id: number
 	login: string
-	password: string
+	password?: string
+	password_hash?: string
 	email: string
 	status?: number
 }
@@ -34,8 +35,10 @@ const User = sequelize.define<IUserInstance>(
 			unique: true
 		},
 		password: {
-			type: DataTypes.STRING,
-			allowNull: false
+			type: DataTypes.VIRTUAL
+		},
+		password_hash: {
+			type: DataTypes.STRING
 		},
 		email: {
 			type: DataTypes.STRING,	
@@ -51,9 +54,9 @@ const User = sequelize.define<IUserInstance>(
 	{
 		tableName: 'users',
 		hooks: {
-			beforeCreate: async (user: IUserInstance) => {
+			beforeSave: async (user: IUserInstance) => {
 				if(user.password){
-					user.password = await hash( user.password, 8)
+					user.password_hash = await hash( user.password, 8)
 				}
 			}
 		}
@@ -61,7 +64,7 @@ const User = sequelize.define<IUserInstance>(
 )
 
 User.prototype.validatePassword = function(password: string){
-	return compare(password, this.password)
+	return compare(password, this.password_hash)
 }
 
 export {User, IUserInstance}
