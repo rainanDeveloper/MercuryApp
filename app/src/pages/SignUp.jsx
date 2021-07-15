@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StyledSignUp } from '../styles/pages/StyledSignUp'
 import { passwordStrength } from '../utils/password'
+import { createUser } from '../services/SignUpService'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const SignUp = ()=>{
 
@@ -53,12 +56,21 @@ const SignUp = ()=>{
 		}
 	}
 
-	function handleSignUpFormSubmit(event){
+	async function handleSignUpFormSubmit(event){
 		event.preventDefault()
 
 		setLoading(true)
 
-		
+		try{
+			const myself = createUser(login, email, password)
+
+			toast.success(`user successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
+		}
+		catch(error){
+			toast.error(`Error while trying to Sign Up: ${error.message}`, {autoClose: 5000})
+		}
+
+		setLoading(false)
 	}
 	
 	return <StyledSignUp>
@@ -121,6 +133,7 @@ const SignUp = ()=>{
 				<button disabled={loading}>{loading?'Signing Up...':'Sign Up'}</button>
 			</form>
 		</section>
+		<ToastContainer/>
 	</StyledSignUp>
 }
 

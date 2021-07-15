@@ -41,7 +41,6 @@ const Login = ()=>{
 			}
 		}
 		catch(error){
-			console.log(error)
 			toast.error(`Error while trying to Sign In: ${error.message}`, {autoClose: 5000})
 		}
 
