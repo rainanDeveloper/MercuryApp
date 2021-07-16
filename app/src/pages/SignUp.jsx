@@ -108,7 +108,7 @@ const SignUp = ()=>{
 					<label htmlFor="password">Password</label>
 					<input
 					type="password"
-					pattern="$[^\s\t\n]+^"
+					pattern="^[^\s\t\n]+$"
 					id="password"
 					value={password}
 					onChange={handlePasswordChange}
@@ -124,7 +124,7 @@ const SignUp = ()=>{
 					<label htmlFor="password_confirm">Confirm Password</label>
 					<input
 					type="password"
-					pattern="$[^\s\t\n]+^"
+					pattern="^[^\s\t\n]+$"
 					id="password_confirm"
 					value={passwordConfirm}
 					onChange={handlePasswordConfirmChange}
