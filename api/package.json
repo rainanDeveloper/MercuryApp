@@ -5,7 +5,7 @@
 	"main": "./dist/server.js",
 	"scripts": {
 		"start": "node ./dist/server.js",
-		"postinstall": "tsc && tsc-alias",
+		"postinstall": "build",
 		"build": "tsc && tsc-alias",
 		"prestart": "sequelize-cli db:migrate",
 		"dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/server.ts",
