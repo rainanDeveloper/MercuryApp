@@ -7,10 +7,6 @@
 		"outDir": "./dist",                             
 		"rootDir": "./src",
 		"removeComments": true,
-		"types": [
-			"jest",
-			"node"
-		],
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,              
