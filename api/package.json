@@ -36,7 +36,7 @@
 		"faker": "^5.5.3",
 		"jest": "^27.0.5",
 		"jsonwebtoken": "^8.5.1",
-		"mysql3": "^0.5.14",
+		"mysql2": "^2.2.5",
 		"nodemailer": "^6.6.2",
 		"sequelize": "^6.6.2",
 		"sequelize-cli": "^6.2.0",
