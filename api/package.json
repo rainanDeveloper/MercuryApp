@@ -10,7 +10,8 @@
 		"dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules src/server.ts",
 		"pretest": "sequelize-cli db:migrate",
 		"test": "jest",
-		"posttest": "sequelize-cli db:migrate:undo:all"
+		"posttest": "sequelize-cli db:migrate:undo:all",
+		"create-db": "sequelize-cli db:create && sequelize-cli db:migrate"
 	},
 	"author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",
 	"license": "MIT",
