@@ -2,6 +2,8 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import {sequelize} from '.'
 import { hash, compare } from 'bcrypt'
+import { Chat, IChatInstance } from './chat'
+import { UserChat } from './user_chat'
 
 interface IUserAttributes {
 	id: number
@@ -17,6 +19,7 @@ interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
 interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>, IUserAttributes {
 	createdAt?: Date
 	updatedAt?: Date
+	newChat: IChatInstance
 	validatePassword: Function
 }
 
@@ -46,7 +49,7 @@ const User = sequelize.define<IUserInstance>(
 			unique: true
 		},
 		status: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.TINYINT,
 			allowNull: false,
 			defaultValue: 0
 		}

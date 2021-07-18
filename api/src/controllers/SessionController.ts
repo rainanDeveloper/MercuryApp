@@ -2,6 +2,12 @@ import { Request, Response } from 'express'
 import { User } from '@models/user'
 import { sequelize } from '@models/index'
 import { JWToken } from '../utils/JWToken'
+import { UserChat } from '@models/user_chat'
+import { Chat } from '@models/chat'
+
+User.hasMany(UserChat, { foreignKey: 'userId' })
+
+UserChat.belongsTo(Chat, { foreignKey: 'chatId' })
 
 const SessionController = {
 	async store(request: Request, response: Response){
@@ -58,6 +64,50 @@ const SessionController = {
 		catch(error){
 			return response.status(500).json({
 				message: `Error while trying to autenticate user!`
+			})
+		}
+	},
+	async show(request: Request, response: Response){
+		const { authtoken: token } = request.headers
+
+		if(!token){
+			return response.status(401).json({
+				message: 'No authtoken provided!'
+			})
+		}
+
+		try{
+			const data = await new JWToken({}).validateToken(token)
+
+			if(data){
+				const user = await User.findOne({
+					attributes: ['id', 'login', 'email'],
+					where: {
+						login: data.login
+					},
+					include: [
+						{
+							model: UserChat,
+							include: [
+								Chat
+							]
+						}
+					]
+				})
+
+				if(user){
+					return response.json(user)
+				}
+				else{
+					return response.status(401).json({
+						message: 'Invalid authtoken!'
+					})
+				}
+			}
+		}
+		catch(error){
+			return response.status(401).json({
+				message: 'Invalid authtoken!'
 			})
 		}
 	}
