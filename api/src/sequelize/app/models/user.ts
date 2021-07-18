@@ -2,6 +2,7 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import {sequelize} from '.'
 import { hash, compare } from 'bcrypt'
+import { IChatInstance } from './chat'
 
 interface IUserAttributes {
 	id: number
@@ -18,6 +19,7 @@ interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>,
 	createdAt?: Date
 	updatedAt?: Date
 	validatePassword: Function
+	Chats: Array<IChatInstance>
 }
 
 const User = sequelize.define<IUserInstance>(
