@@ -46,7 +46,7 @@ const User = sequelize.define<IUserInstance>(
 			unique: true
 		},
 		status: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.TINYINT,
 			allowNull: false,
 			defaultValue: 0
 		}
