@@ -19,7 +19,6 @@ interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>,
 	createdAt?: Date
 	updatedAt?: Date
 	validatePassword: Function
-	Chats: Array<IChatInstance>
 }
 
 const User = sequelize.define<IUserInstance>(

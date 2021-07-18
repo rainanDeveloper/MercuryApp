@@ -3,12 +3,17 @@ import { User } from '@models/user'
 import { IMail, transporter } from '../services/nodemailer.service'
 import { sequelize } from '@models/index'
 import { JWToken } from '../utils/JWToken'
+import { Chat } from '@models/chat'
+import { Op } from 'sequelize'
+
 
 const UserController = {
 
 	async index(request: Request, response: Response){
 
 		const users = await User.findAll()
+
+		users
 
 		return response.json(users)
 		
@@ -121,8 +126,30 @@ const UserController = {
 		}
 
 
-	}
+	},
+	async show(request: Request, response: Response){
+		const {identifier} = request.params
 
+		const user = await User.findOne({
+			attributes: ['id', 'login'],
+			where: {
+				[Op.or]: [
+					{
+						login: identifier
+					}
+				]
+			}
+		})
+
+		if(user){
+			return response.json(user)
+		}
+		else{
+			return response.status(404).json({
+				message: `User not found!`
+			})
+		}
+	}
 }
 
 
