@@ -3,17 +3,17 @@ import { User } from '@models/user'
 import { IMail, transporter } from '../services/nodemailer.service'
 import { sequelize } from '@models/index'
 import { JWToken } from '../utils/JWToken'
-import { Chat } from '@models/chat'
 import { Op } from 'sequelize'
-
+import { UserChat } from '@models/user_chat'
+import { Chat } from '@models/chat'
 
 const UserController = {
 
 	async index(request: Request, response: Response){
 
-		const users = await User.findAll()
-
-		users
+		const users = await User.findAll({
+			attributes: ['id', 'login']
+		})
 
 		return response.json(users)
 		
@@ -36,6 +36,16 @@ const UserController = {
 				password,
 				email
 			}, {transaction})
+
+			const newChat = await Chat.create({
+				name: 'Notes to self'
+			}, {transaction})
+			
+
+			const userChatRelation = await UserChat.create({
+				userId: userCreated.id,
+				chatId: newChat.id
+			}, { transaction })
 
 			await transaction.commit()
 

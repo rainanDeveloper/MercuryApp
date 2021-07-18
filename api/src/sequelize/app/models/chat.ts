@@ -1,7 +1,7 @@
 'use strict'
 import { DataTypes, Model, Optional } from 'sequelize'
 import {sequelize} from '.'
-import { IUserInstance } from './user'
+
 
 interface IChatAttributes {
 	id: number
@@ -13,7 +13,6 @@ interface IChatCreationAttributes extends Optional<IChatAttributes, 'id'> {}
 interface IChatInstance extends Model<IChatAttributes, IChatCreationAttributes>, IChatAttributes {
 	createdAt?: Date
 	updatedAt?: Date
-	Users: Array<IUserInstance>
 }
 
 
