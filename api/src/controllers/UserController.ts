@@ -121,7 +121,24 @@ const UserController = {
 				}
 			})
 			if(newUser){
-				await newUser.destroy()
+
+				const userChatRelation = await UserChat.findOne({
+					where: {
+						userId: newUser.id
+					}
+				})
+
+				if(userChatRelation){
+					userChatRelation.destroy().then(()=>{
+						Chat.destroy({
+							where: {
+								id: userChatRelation.chatId
+							}
+						}).then(async ()=>{
+							await newUser.destroy()
+						})
+					})
+				}
 			}
 			else{
 				transaction.rollback()
