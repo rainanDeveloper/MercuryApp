@@ -1,15 +1,15 @@
 {
-  "name": "mercury-app",
-  "version": "0.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/rainanDeveloper/MercuryApp.git",
-  "author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",
-  "license": "MIT",
-  "scripts": {
-	  "start": "cd api && npm run start",
-	  "buildApi": "cd api && npm install",
-	  "buildApp": "cd app && npm install",
-	  "build": "npm run buildApi && npm run buildApp",
-	  "heroku-postbuild": "npm run build"
-  }
+	"name": "mercury-app",
+	"version": "0.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/rainanDeveloper/MercuryApp.git",
+	"author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",
+	"license": "MIT",
+	"scripts": {
+		"start": "cd api && npm run start",
+		"buildApi": "cd api && npm install",
+		"buildApp": "cd app && npm install",
+		"build": "npm run buildApi && npm run buildApp",
+		"heroku-postbuild": "npm run build"
+	}
 }
