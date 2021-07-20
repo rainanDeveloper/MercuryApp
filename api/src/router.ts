@@ -1,7 +1,7 @@
 import { SessionController } from '@controllers/SessionController'
 import { UserController } from '@controllers/UserController'
 import { Router } from 'express'
-import { activateUser } from 'services/activateUser.service'
+import { activateUser } from './services/activateUser.service'
 
 const router = Router()
 
