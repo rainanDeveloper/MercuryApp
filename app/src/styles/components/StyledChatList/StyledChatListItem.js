@@ -13,6 +13,15 @@ const StyledChatListItem = styled.div`
 		display: flex;
 		width: 60px;
 		height: 60px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	div.chatPic img{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	div.chatTitle {

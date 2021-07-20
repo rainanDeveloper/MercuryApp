@@ -1,13 +1,11 @@
 import { Request, Response } from 'express'
 import { User } from '@models/user'
-import { sequelize } from '@models/index'
 import { JWToken } from '../utils/JWToken'
 import { UserChat } from '@models/user_chat'
 import { Chat } from '@models/chat'
 
-User.hasMany(UserChat, { foreignKey: 'userId' })
-
-UserChat.belongsTo(Chat, { foreignKey: 'chatId' })
+User.belongsToMany(Chat, { through: UserChat, foreignKey: 'userId' })
+Chat.belongsToMany(User, { through: UserChat, foreignKey: 'chatId' })
 
 const SessionController = {
 	async store(request: Request, response: Response){
@@ -87,9 +85,11 @@ const SessionController = {
 					},
 					include: [
 						{
-							model: UserChat,
+							model: Chat,
 							include: [
-								Chat
+								{
+									model: User
+								}
 							]
 						}
 					]

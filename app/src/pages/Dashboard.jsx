@@ -18,10 +18,30 @@ function Dashboard({chatId=null}) {
 				const data = await getAuthInfo(authtoken)
 
 				if(data){
-					setChats(data.UserChats.map(c=>({
-						id: c.Chat.id,
-						title: c.Chat.name
-					})))
+					setChats(data.Chats.map(c=>{
+						const chat = {}
+
+						/** 
+						 * Chat structure:
+						 * {
+						 * 		id: number,
+						 * 		title: string,
+						 * 		profilePicUrl: string
+						 * }
+						 * */ 
+
+						chat.id = c.id
+						chat.title = c.name
+						
+						if(c.Users.length==1){
+							chat.profilePicUrl = c.Users[0].avatar || '/assets/defaultUser.jpg'
+						}
+						else{
+							chat.profilePicUrl = '/assets/defaultUser.jpg'
+						}
+
+						return chat
+					}))
 				}
 			}
 			catch(error){
