@@ -20,6 +20,9 @@ module.exports = {
 				allowNull: false,
 				unique: true
 			},
+			avatar: {
+				type: Sequelize.STRING
+			},
 			status: {
 				type: Sequelize.TINYINT,
 				allowNull: false
