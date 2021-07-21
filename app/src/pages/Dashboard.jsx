@@ -5,6 +5,7 @@ import { useHistory, BrowserRouter, Switch, Route } from 'react-router-dom';
 import { getAuthInfo } from '../services/AuthInfoService.js';
 import { DashboardWelcome } from '../components/DashboardWelcome.jsx';
 import { StyledMainBody } from '../styles/components/StyledMainBody.js';
+import { ChatMessageList } from '../components/ChatMessageList/index.jsx';
 
 function Dashboard({chatId=null}) {
 
@@ -73,6 +74,7 @@ function Dashboard({chatId=null}) {
 				<BrowserRouter>
 					<Switch>
 						<Route exact path='/' component={DashboardWelcome}/>
+						<Route exact path='/chat/:id' component={ChatMessageList}/>
 					</Switch>
 				</BrowserRouter>
 			</StyledMainBody>
