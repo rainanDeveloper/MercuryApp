@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import {Chatlist} from '../components/ChatList/index.jsx'
 import { StyledDashboard } from '../styles/pages/StyledDashboard.js'
-import { useHistory, BrowserRouter, Switch, Route } from 'react-router-dom';
-import { getAuthInfo } from '../services/AuthInfoService.js';
-import { DashboardWelcome } from '../components/DashboardWelcome.jsx';
-import { StyledMainBody } from '../styles/components/StyledMainBody.js';
-import { ChatMessageList } from '../components/ChatMessageList/index.jsx';
+import { useHistory, Switch, Route } from 'react-router-dom'
+import { getAuthInfo } from '../services/AuthInfoService.js'
+import { DashboardWelcome } from '../components/DashboardWelcome.jsx'
+import { StyledMainBody } from '../styles/components/StyledMainBody.js'
+import { ChatMessageList } from '../components/ChatMessageList/index.jsx'
 
-function Dashboard({chatId=null}) {
+function Dashboard() {
 
 	const [chats, setChats]		= useState([])
 
@@ -59,24 +59,16 @@ function Dashboard({chatId=null}) {
 		}
 	}, [])
 
-	const Teste = ({match})=>{
-		const {params} = match
-
-		return <>{params.id}</>
-	}
-		
 	return (
 		<StyledDashboard>
 			<aside>
 				<Chatlist chatList={chats}/>
 			</aside>
 			<StyledMainBody>
-				<BrowserRouter>
-					<Switch>
-						<Route exact path='/' component={DashboardWelcome}/>
-						<Route exact path='/chat/:id' component={ChatMessageList}/>
-					</Switch>
-				</BrowserRouter>
+				<Switch>
+					<Route path='/chat/:id' component={ChatMessageList}/>
+					<Route exact path='/' component={DashboardWelcome}/>
+				</Switch>
 			</StyledMainBody>
 		</StyledDashboard>
 	)
