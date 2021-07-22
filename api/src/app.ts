@@ -8,6 +8,7 @@ app.use(express.json())
 app.use('/', express.static('../app/build'))
 app.use('/login', express.static('../app/build'))
 app.use('/signup', express.static('../app/build'))
+app.use('/chat/:id', express.static('../app/build'))
 
 app.use(router)
 

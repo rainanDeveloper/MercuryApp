@@ -19,6 +19,7 @@ const Routes = ()=>{
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={initialPage}/>
+                <Route exact path="/chat/:id" component={Dashboard}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/signup" component={SignUp}/>
             </Switch>
