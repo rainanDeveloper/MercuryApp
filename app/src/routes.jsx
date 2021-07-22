@@ -19,7 +19,7 @@ const Routes = ()=>{
 		<BrowserRouter>
 			<React.Fragment>
 				<Switch>
-					<Route path="/" component={initialPage}/>
+					<Route exact path="/" component={initialPage}/>
 					<Route exact path="/login" component={Login}/>
 					<Route exact path="/signup" component={SignUp}/>
 				</Switch>
