@@ -13,6 +13,13 @@ const StyledChatList = styled.ul`
 		display: flex;
 		flex-direction: column;
 	}
+
+	li a {
+		background-color: transparent;
+		border: none;
+		padding: 0;
+		margin: 0;
+	}
 `
 
 export { StyledChatList }
