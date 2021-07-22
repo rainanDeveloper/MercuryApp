@@ -1,6 +1,6 @@
 {
 	"name": "mercury-app",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"main": "index.js",
 	"repository": "https://github.com/rainanDeveloper/MercuryApp.git",
 	"author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",

@@ -1,6 +1,5 @@
 {
 	"name": "mercury-app-api",
-	"version": "0.3.1",
 	"description": "",
 	"main": "./dist/server.js",
 	"scripts": {
