@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledTextUserInterator = styled.section`
 	display: flex;
 	width: 100%;
-	height: 80px;
+	min-height: 80px;
 	padding: 10px;
 	align-items: center;
 	border-top: 1px solid #ccc;
@@ -17,13 +17,29 @@ const StyledTextUserInterator = styled.section`
 		border: none;
 	}
 
-	textarea {
-		border: none;
-		background: #dcdde1;
-		resize: none;
+	.textContainer {
+		display: flex;
+		justify-content: stretch;
+		align-items: flex-start;
 		padding: 15px;
+		background: #dcdde1;
+		border: none;
 		flex-grow: 1;
 		border-radius: 20px;
+		min-height: 50px;
+
+		textarea {
+			background: transparent;
+			border: none;
+			resize: none;
+			flex-grow: 1;
+			font-family: 'Helvetica', Roboto;
+		}
+
+		.sendBtn {
+			padding: 0;
+			margin: 0;
+		}
 	}
 `
 
