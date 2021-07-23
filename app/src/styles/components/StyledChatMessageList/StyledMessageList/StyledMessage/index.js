@@ -11,7 +11,7 @@ const StyledMessage = styled.div`
 	span {
 		color: #2c3e50;
 		font-weight: 600;
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 	}
 
 	div {
