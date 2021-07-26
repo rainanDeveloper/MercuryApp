@@ -24,6 +24,7 @@ const StyledMessage = styled.div`
 			padding: 10px;
 			border-radius: 0 5px 5px 5px;
 			max-width: 400px;
+			margin-right: 80px;
 		}
 	}
 

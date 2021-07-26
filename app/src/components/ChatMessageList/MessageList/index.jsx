@@ -5,17 +5,27 @@ import { MessageItem } from './MessageItem'
 const MessageList = ({chatHistory=[]})=>{
 	const refMessageListEnd = useRef()
 
+	function handleSizeChange(){
+		if(refMessageListEnd.current){
+			const messageEnd = refMessageListEnd.current
+
+			messageEnd.scrollIntoView()
+		}
+	}
+
+	useEffect(()=>{
+		window.addEventListener('resize', handleSizeChange)
+	}, [])
+
 	useEffect(()=>{
 		if(refMessageListEnd.current){
 			const messageEnd = refMessageListEnd.current
 
-			messageEnd.scrollIntoView({
-				behavior: 'smooth'
-			})
+			messageEnd.scrollIntoView()
 		}
 	}, [chatHistory])
 
-	return <StyledMessageList>
+	return <StyledMessageList onRes>
 		<ul>
 			{chatHistory.map(m=>{
 				return (

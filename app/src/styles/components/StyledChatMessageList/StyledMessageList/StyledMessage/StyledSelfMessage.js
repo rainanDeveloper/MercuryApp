@@ -11,10 +11,12 @@ const StyledSelfMessage = styled.div`
 
 	div {
 		flex-direction: column;
-		background: #48dbfb;
+		background: #192a56;
+		color: white;
 		padding: 10px;
 		border-radius: 5px 0 5px 5px;
 		max-width: 400px;
+		margin-left: 80px;
 	}
 
 `
