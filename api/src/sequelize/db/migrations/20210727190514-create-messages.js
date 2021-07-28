@@ -15,10 +15,18 @@ module.exports = {
 				type: Sequelize.STRING
 			},
 			userId: {
-				type: Sequelize.INTEGER
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'users',
+					key: 'id'
+				}
 			},
 			chatId: {
-				type: Sequelize.INTEGER
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'chats',
+					key: 'id'
+				}
 			},
 			createdAt: {
 				allowNull: false,
