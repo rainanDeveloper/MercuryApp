@@ -9,7 +9,7 @@ const TextUserInterator = ()=>{
 		<button className="imgBtn"><FaRegSmile size={22}/></button>
 		<button className="imgBtn"><FaImage size={22}/></button>
 		<div className="textContainer">
-			<TextareaAutosize />
+			<TextareaAutosize placeholder="Message"/>
 			<button className="sendBtn"><GrSend size={22}/></button>
 		</div>
 	</StyledTextUserInterator>
