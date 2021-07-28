@@ -16,13 +16,14 @@ const MessageController = {
 		return response.json(messages)
 	},
 	async store(request: Request, response: Response){
-		const {chatId, content, content_type} = request.body
+		const {chatId, content, content_type, timestamp} = request.body
 		const {id: userId} = request['user']
 
 		try{
 			const newMessage = await Message.create({
 				chatId,
 				userId,
+				timestamp,
 				content,
 				content_type
 			})

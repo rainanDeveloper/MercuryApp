@@ -8,6 +8,7 @@ interface IMessageAttributes {
 	id: number
 	content: string
 	content_type: string
+	timestamp: number
 	chatId: number
 	userId: number
 }
@@ -34,6 +35,10 @@ const Message = sequelize.define<IMessageInstance>(
 		},
 		content_type: {
 			type: DataTypes.STRING
+		},
+		timestamp: {
+			type: DataTypes.BIGINT.UNSIGNED,
+			allowNull: false
 		},
 		chatId: {
 			type: DataTypes.INTEGER,

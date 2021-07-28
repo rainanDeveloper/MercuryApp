@@ -14,6 +14,10 @@ module.exports = {
 			content_type: {
 				type: Sequelize.STRING
 			},
+			timestamp: {
+				type: Sequelize.BIGINT.UNSIGNED,
+				allowNull: false
+			},
 			userId: {
 				type: Sequelize.INTEGER,
 				references: {
