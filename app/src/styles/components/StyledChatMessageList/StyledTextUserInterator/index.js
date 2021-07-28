@@ -12,16 +12,17 @@ const StyledTextUserInterator = styled.section`
 	align-items: center;
 	border-top: 1px solid #ccc;
 	gap: 15px;
-
+	
 	button {
 		background: transparent;
 		color: #2c3e50;
 		border: none;
 		margin-top: 0;
 	}
-
+	
 	.textContainer {
 		display: flex;
+		max-height: 25vh;
 		justify-content: stretch;
 		align-items: flex-start;
 		padding: 15px;
@@ -31,15 +32,15 @@ const StyledTextUserInterator = styled.section`
 		border-radius: 20px;
 		min-height: 50px;
 		gap: 10px;
+		overflow: auto;
 
 		textarea {
 			background: transparent;
 			border: none;
 			resize: none;
 			flex-grow: 1;
-			font-family: 'Helvetica', Roboto;
+			font-family: 'Segoe UI Emoji', Roboto;
 			font-size: 1.2em !important;
-			max-height: 40%;
 		}
 
 		.sendBtn {

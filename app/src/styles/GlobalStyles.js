@@ -1,16 +1,17 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	font-size: 16px;
 	outline: none;
-	font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
-	font-weight: 300;
+	font-weight: 400;
 }
 
 html, body {
