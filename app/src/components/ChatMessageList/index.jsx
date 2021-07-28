@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyledChatMessageList } from '../../styles/components/StyledChatMessageList'
 import { MessageList } from './MessageList'
 import { TextUserInterator } from './TextUserInterator'
 
 const ChatMessageList = ()=>{
+
+	const [message, setMessage] = useState('')
 
 	const chatHistory = [
 		{
@@ -28,11 +30,13 @@ const ChatMessageList = ()=>{
 		}
 	]
 
-	
+	function handleTextInteratorChanging(value){
+		setMessage(value)
+	}
 
 	return <StyledChatMessageList>
-		<MessageList chatHistory={chatHistory}/>
-		<TextUserInterator/>
+		<MessageList chatHistory={chatHistory} messageDisplayed={message}/>
+		<TextUserInterator value={message} onChange={handleTextInteratorChanging}/>
 	</StyledChatMessageList>
 }
 

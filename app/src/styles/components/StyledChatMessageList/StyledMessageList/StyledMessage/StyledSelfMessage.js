@@ -19,6 +19,7 @@ const StyledSelfMessage = styled.div`
 		margin-left: 80px;
 	}
 
+
 `
 
 export {

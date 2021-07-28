@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { StyledMessageList } from '../../../styles/components/StyledChatMessageList/StyledMessageList'
 import { MessageItem } from './MessageItem'
 
-const MessageList = ({chatHistory=[]})=>{
+const MessageList = ({chatHistory=[], messageDisplayed})=>{
 	const refMessageListEnd = useRef()
 
 	function handleSizeChange(){
@@ -15,7 +15,7 @@ const MessageList = ({chatHistory=[]})=>{
 
 	useEffect(()=>{
 		window.addEventListener('resize', handleSizeChange)
-	}, [])
+	}, [messageDisplayed])
 
 	useEffect(()=>{
 		if(refMessageListEnd.current){
