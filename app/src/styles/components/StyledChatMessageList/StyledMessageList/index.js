@@ -9,7 +9,6 @@ const StyledMessageList = styled.section`
 	flex-grow: 1;
 	padding-bottom: 10px;
 	overflow-y: scroll;
-	font-family: 'Segoe UI Emoji', Roboto;
 	
 	::-webkit-scrollbar {
 		width: 8px;

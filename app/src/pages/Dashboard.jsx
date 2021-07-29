@@ -37,10 +37,10 @@ function Dashboard() {
 						chat.title = c.name
 						
 						if(c.Users.length==1){
-							chat.profilePicUrl = c.Users[0].avatar || '/assets/defaultUser.jpg'
+							chat.profilePicUrl = c.Users[0].avatar || '/assets/images/defaultUser.jpg'
 						}
 						else{
-							chat.profilePicUrl = '/assets/defaultUser.jpg'
+							chat.profilePicUrl = '/assets/images/defaultUser.jpg'
 						}
 
 						return chat

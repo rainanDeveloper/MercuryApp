@@ -10,11 +10,14 @@ const TextUserInterator = ({value='', onChange=()=>{}})=>{
 
 	function sanitize(value){
 
-		function replaceHeart(v){
-			return v.replace(/\<3 /g, "\u2764 ")
-		}
+		const iconize = []
 
-		return replaceHeart(value)
+		iconize.push((v)=>{
+			return v.replace(/\<3 /g, "\u2764 ")
+		})
+
+		
+		return iconize.reduce((v, f)=>f(v), value)
 
 	}
 
