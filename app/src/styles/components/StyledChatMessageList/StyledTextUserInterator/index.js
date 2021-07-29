@@ -39,8 +39,7 @@ const StyledTextUserInterator = styled.section`
 			border: none;
 			resize: none;
 			flex-grow: 1;
-			font-family: 'Segoe UI Emoji', Roboto;
-			font-size: 1.2em !important;
+			font-size: 16px !important;
 		}
 
 		.sendBtn {

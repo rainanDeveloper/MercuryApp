@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
 	box-sizing: border-box;
 	font-size: 16px;
 	outline: none;
-	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Oxygen',
+	font-family: 'Segoe UI Emoji', Roboto, -apple-system, BlinkMacSystemFont, 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
 	font-weight: 400;
