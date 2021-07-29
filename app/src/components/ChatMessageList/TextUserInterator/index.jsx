@@ -29,10 +29,14 @@ const TextUserInterator = ({value='', onChange=()=>{}})=>{
 	return <StyledTextUserInterator>
 		<button className="imgBtn"><FaRegSmile size={22}/></button>
 		<button className="imgBtn"><FaImage size={22}/></button>
-		<div className="textContainer">
-			<TextareaAutosize placeholder="Message" value={value} onChange={handleTextareaChange}/>
-			<button className="sendBtn"><GrSend size={22}/></button>
+		<div className="tooltipContainer">
+			<div className="text">
+				<div className="textContainer">
+					<TextareaAutosize placeholder="Message" value={value} onChange={handleTextareaChange}/>
+				</div>
+			</div>
 		</div>
+		<button className="sendBtn"><GrSend size={22}/></button>
 	</StyledTextUserInterator>
 }
 
