@@ -3,8 +3,12 @@ import { StyledTextUserInterator } from '../../../styles/components/StyledChatMe
 import { FaImage, FaRegSmile } from 'react-icons/fa'
 import { GrSend } from 'react-icons/gr'
 import TextareaAutosize from 'react-textarea-autosize'
+import { sendMessage } from '../../../services/MessageService'
+import { useParams } from "react-router-dom"
 
-const TextUserInterator = ({value='', onChange=()=>{}})=>{
+const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
+
+	const { id: chatId } = useParams()
 
 	// Functions to modify text
 
@@ -22,7 +26,53 @@ const TextUserInterator = ({value='', onChange=()=>{}})=>{
 	}
 
 	function handleTextareaChange(event){
+		event.preventDefault()		
+
 		onChange(sanitize(event.target.value))
+	}
+
+	function handleTextAreaKeyDown(event){
+		const sensibleKeys = {
+			Enter: ()=>{
+				const sendWithEnter = localStorage.getItem('sendWithEnter')
+
+				if(eval(sendWithEnter)){
+					handleSendMessage()
+				}
+			}
+		}
+
+		if(typeof sensibleKeys[event.key]==='function'){
+			event.preventDefault()
+			sensibleKeys[event.key]()
+		}
+
+
+	}
+
+	function handleSendMessage(event){
+		if(event){
+			event.preventDefault()
+		}
+
+		if(value.length>0){
+			try{
+				sendMessage({
+					chatId,
+					content: value,
+					timestamp: Date.now(),
+					content_type: 'text'
+				})
+				console.log(value)
+				afterSubmit(value)
+			}
+			catch(error){
+
+			}
+			finally{
+				
+			}
+		}
 	}
 
 
@@ -32,11 +82,11 @@ const TextUserInterator = ({value='', onChange=()=>{}})=>{
 		<div className="tooltipContainer">
 			<div className="text">
 				<div className="textContainer">
-					<TextareaAutosize placeholder="Message" value={value} onChange={handleTextareaChange}/>
+					<TextareaAutosize onKeyDown={handleTextAreaKeyDown} placeholder="Message" value={value} onChange={handleTextareaChange}/>
 				</div>
 			</div>
 		</div>
-		<button className="sendBtn"><GrSend size={22}/></button>
+		<button className="sendBtn" onClick={handleSendMessage}><GrSend size={22}/></button>
 	</StyledTextUserInterator>
 }
 

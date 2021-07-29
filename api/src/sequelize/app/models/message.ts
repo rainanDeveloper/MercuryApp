@@ -55,7 +55,7 @@ const Message = sequelize.define<IMessageInstance>(
 			}
 		}
 	}, {
-		tableName: 'user_chat'
+		tableName: 'messages'
 	})
 
 
