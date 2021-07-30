@@ -43,7 +43,6 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 		}
 
 		if(typeof sensibleKeys[event.key]==='function'){
-			event.preventDefault()
 			sensibleKeys[event.key]()
 		}
 

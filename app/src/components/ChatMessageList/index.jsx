@@ -1,13 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyledChatMessageList } from '../../styles/components/StyledChatMessageList'
 import { MessageList } from './MessageList'
 import { TextUserInterator } from './TextUserInterator'
+import { useParams } from "react-router-dom"
+import { listMessages } from '../../services/MessageService'
+import { toast, ToastContainer } from 'react-toastify'
 
 const ChatMessageList = ()=>{
 
 	const [message, setMessage] = useState('')
 
 	const [chatHistory, setChatHIstory] = useState([])
+
+	const { id: chatId } = useParams()
+
+	useEffect(async ()=>{
+		try{
+			const messages = await listMessages(chatId)
+
+			setChatHIstory(messages)
+		}
+		catch(error){
+			toast.error(`Error while trying to retrieve messages: ${error.message}`, {autoClose: 5000})
+		}
+	}, [chatId])
 
 	function handleAfterSubmitMessage(value){
 		setChatHIstory(oldChatHistory=>[...oldChatHistory, {
@@ -25,6 +41,7 @@ const ChatMessageList = ()=>{
 	return <StyledChatMessageList>
 		<MessageList chatHistory={chatHistory} messageDisplayed={message}/>
 		<TextUserInterator value={message} onChange={handleTextInteratorChanging} afterSubmit={handleAfterSubmitMessage}/>
+		<ToastContainer />
 	</StyledChatMessageList>
 }
 

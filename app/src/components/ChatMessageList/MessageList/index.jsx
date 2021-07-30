@@ -30,11 +30,11 @@ const MessageList = ({chatHistory=[], messageDisplayed})=>{
 			{chatHistory.map(m=>{
 				return (
 				<li>
-					<MessageItem content={m.content} author={m.author} />
+					<MessageItem content={m.content} author={m.User.login} timestamp={m.timestamp} />
 				</li>
 				)
 			})}
-			<div ref={refMessageListEnd}></div>
+			<div className="scrollComponent" ref={refMessageListEnd}></div>
 		</ul>
 	</StyledMessageList>
 }

@@ -20,11 +20,22 @@ const StyledMessage = styled.div`
 
 		div {
 			flex-direction: column;
+			position: relative;
 			background: #dcdde1;
 			padding: 10px;
-			border-radius: 0 5px 5px 5px;
+			border-radius: 5px;
+			border-bottom-left-radius: 0;
 			max-width: 400px;
+			padding-right: 40px;
 			margin-right: 80px;
+
+			span.timestamp{
+				position: absolute;
+				font-size: 0.6em;
+				color: #888;
+				bottom: 0;
+				right: 5px;
+			}
 		}
 	}
 
