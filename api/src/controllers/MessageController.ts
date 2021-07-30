@@ -1,19 +1,49 @@
 import { Request, Response } from 'express'
 import { Message } from '@models/message'
+import { Chat } from '@models/chat'
+import { UserChat } from '@models/user_chat'
+import { User } from '@models/user'
+
+
+Message.belongsTo(User, { foreignKey: 'userId' })
+
+UserChat.belongsTo(User, { foreignKey: 'userId' })
+UserChat.belongsTo(Chat, { foreignKey: 'chatId' })
 
 const MessageController = {
 	async index(request: Request, response: Response){
 		const {id: userId} = request['user']
-		const {ch} = request.query
+		const {chatId} = request.query
 
-		const messages = await Message.findAll({
+		const userChatRelation = await UserChat.findOne({
 			where: {
-				chatId: ch,
-				userId
+				userId,
+				chatId
 			}
 		})
 
-		return response.json(messages)
+		if(userChatRelation){
+			const messages = await Message.findAll({
+				where: {
+					chatId
+				},
+				include: [
+					{
+						model: User,
+						attributes: ['id', 'login']
+					}
+				]
+			})
+	
+			return response.json(messages)
+	
+		}
+		else{
+			return response.status(404).json({
+				message: `Chat not found for this user!`
+			})
+		}
+
 	},
 	async store(request: Request, response: Response){
 		const {chatId, content, content_type, timestamp} = request.body
@@ -26,6 +56,15 @@ const MessageController = {
 				timestamp,
 				content,
 				content_type
+			})
+
+			await newMessage.reload({
+				include: [
+					{
+						model: User,
+						attributes: ['id', 'login']
+					}
+				]
 			})
 	
 			return response.json(newMessage)
