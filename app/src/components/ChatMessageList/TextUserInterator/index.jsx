@@ -5,6 +5,7 @@ import { GrSend } from 'react-icons/gr'
 import TextareaAutosize from 'react-textarea-autosize'
 import { sendMessage } from '../../../services/MessageService'
 import { useParams } from "react-router-dom"
+import { toast } from 'react-toastify'
 
 const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 
@@ -65,7 +66,7 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 				afterSubmit(message)
 			}
 			catch(error){
-
+				toast.error(`Error while trying to send message: ${error}`, { autoClose: 5000 })
 			}
 			finally{
 				

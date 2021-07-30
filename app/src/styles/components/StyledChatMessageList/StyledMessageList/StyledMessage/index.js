@@ -36,6 +36,16 @@ const StyledMessage = styled.div`
 				bottom: 0;
 				right: 5px;
 			}
+
+			::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				left: -10px;
+				border: solid 10px transparent;
+				border-bottom: solid 10px #dcdde1;
+				z-index: 1
+			}
 		}
 	}
 

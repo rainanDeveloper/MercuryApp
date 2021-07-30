@@ -28,6 +28,16 @@ const StyledSelfMessage = styled.div`
 			bottom: 5px;
 			right: 5px;
 		}
+
+		::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			right: -10px;
+			border: solid 10px transparent;
+			border-bottom: solid 10px #192a56;
+			z-index: 1
+		}
 	}
 
 

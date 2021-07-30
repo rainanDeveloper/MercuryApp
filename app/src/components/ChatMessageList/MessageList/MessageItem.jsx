@@ -13,7 +13,7 @@ const MessageItem = ({content, author, timestamp})=>{
 	return (
 		author==login?
 		<StyledSelfMessage>
-			<div>
+			<div className="content">
 				<p>{content}</p>
 				<span className="timestamp">{moment(timestamp).format('HH:mm')}</span>
 			</div>
@@ -22,7 +22,7 @@ const MessageItem = ({content, author, timestamp})=>{
 		<StyledMessage>
 			<span>{author}</span>
 			<div>
-				<div>
+				<div className="content">
 					<p>{content}</p>
 					<span className="timestamp">{moment(timestamp).format('HH:mm')}</span>
 				</div>
