@@ -27,9 +27,9 @@ const MessageList = ({chatHistory=[], messageDisplayed})=>{
 
 	return <StyledMessageList onRes>
 		<ul>
-			{chatHistory.map(m=>{
+			{chatHistory.map((m, i)=>{
 				return (
-				<li>
+				<li key={`message_${i}`}>
 					<MessageItem content={m.content} author={m.User.login} timestamp={m.timestamp} />
 				</li>
 				)

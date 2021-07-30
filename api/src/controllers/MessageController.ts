@@ -57,6 +57,15 @@ const MessageController = {
 				content,
 				content_type
 			})
+
+			await newMessage.reload({
+				include: [
+					{
+						model: User,
+						attributes: ['id', 'login']
+					}
+				]
+			})
 	
 			return response.json(newMessage)
 		}

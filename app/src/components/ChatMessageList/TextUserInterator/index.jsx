@@ -49,21 +49,20 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 
 	}
 
-	function handleSendMessage(event){
+	async function handleSendMessage(event){
 		if(event){
 			event.preventDefault()
 		}
 
 		if(value.length>0){
 			try{
-				sendMessage({
+				const message = await sendMessage({
 					chatId,
 					content: value,
 					timestamp: Date.now(),
 					content_type: 'text'
 				})
-				console.log(value)
-				afterSubmit(value)
+				afterSubmit(message)
 			}
 			catch(error){
 

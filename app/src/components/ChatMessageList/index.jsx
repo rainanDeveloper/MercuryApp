@@ -25,11 +25,8 @@ const ChatMessageList = ()=>{
 		}
 	}, [chatId])
 
-	function handleAfterSubmitMessage(value){
-		setChatHIstory(oldChatHistory=>[...oldChatHistory, {
-			content: value,
-			author: 'me'
-		}])
+	function handleAfterSubmitMessage(message){
+		setChatHIstory(oldChatHistory=>[...oldChatHistory, message])
 
 		setMessage('')
 	}
