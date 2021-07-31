@@ -8,6 +8,7 @@ const StyledChatList = styled.ul`
 	margin: 0;
 	border: 0;
 	border-top: solid 1px #ccc;
+	position: relative;
 
 	li {
 		display: flex;

@@ -6,6 +6,7 @@ import { getAuthInfo } from '../services/AuthInfoService.js'
 import { DashboardWelcome } from '../components/DashboardWelcome.jsx'
 import { StyledMainBody } from '../styles/components/StyledMainBody.js'
 import { ChatMessageList } from '../components/ChatMessageList/index.jsx'
+import { FaPlus } from 'react-icons/fa'
 
 function Dashboard() {
 
@@ -63,6 +64,7 @@ function Dashboard() {
 		<StyledDashboard>
 			<aside>
 				<Chatlist chatList={chats}/>
+				<button className="addChat"><FaPlus size={20}/></button>
 			</aside>
 			<StyledMainBody>
 				<Switch>

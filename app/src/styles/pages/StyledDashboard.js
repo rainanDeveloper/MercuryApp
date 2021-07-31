@@ -10,6 +10,14 @@ const StyledDashboard = styled.main`
 		min-width: 350px;
 		border-right: solid 1px #ccc;
 		height: 100vh;
+		position: relative;
+
+		button.addChat {
+			position: absolute;
+			bottom: 15px;
+			right: 15px;
+			border-radius: 50%;
+		}
 	}
 `
 
