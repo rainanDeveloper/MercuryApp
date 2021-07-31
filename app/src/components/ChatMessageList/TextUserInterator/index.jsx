@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyledTextUserInterator } from '../../../styles/components/StyledChatMessageList/StyledTextUserInterator'
 import { FaImage, FaRegSmile } from 'react-icons/fa'
 import { GrSend } from 'react-icons/gr'
@@ -9,7 +9,8 @@ import { toast } from 'react-toastify'
 
 const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 
-	const { id: chatId } = useParams()
+	const { id: chatId }		= useParams()
+	const [loading, setLoading]	= useState(false)
 
 	// Functions to modify text
 
@@ -54,8 +55,9 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 		if(event){
 			event.preventDefault()
 		}
-
+		
 		if(value.length>0){
+			setLoading(true)
 			try{
 				const message = await sendMessage({
 					chatId,
@@ -69,7 +71,7 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 				toast.error(`Error while trying to send message: ${error}`, { autoClose: 5000 })
 			}
 			finally{
-				
+				setLoading(false)
 			}
 		}
 	}
@@ -85,7 +87,7 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 				</div>
 			</div>
 		</div>
-		<button className="sendBtn" onClick={handleSendMessage}><GrSend size={22}/></button>
+		<button className="sendBtn" disabled={loading} onClick={handleSendMessage}><GrSend size={22}/></button>
 	</StyledTextUserInterator>
 }
 
