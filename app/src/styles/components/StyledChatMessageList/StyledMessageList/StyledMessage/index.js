@@ -6,7 +6,7 @@ const StyledMessage = styled.div`
 	align-items: flex-start;
 	display: flex;
 	flex-direction: column;
-	margin-left: 10px;
+	margin-left: 50px;
 
 	span {
 		color: ${props=>props.theme.spanTextColor};

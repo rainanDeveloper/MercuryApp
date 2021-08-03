@@ -7,7 +7,7 @@ const StyledSelfMessage = styled.div`
 	justify-content: flex-end;
 	align-items: flex-end;
 	flex-direction: column;
-	margin-right: 10px;
+	margin-right: 50px;
 
 	div {
 		flex-direction: column;
