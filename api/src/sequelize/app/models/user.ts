@@ -10,6 +10,7 @@ interface IUserAttributes {
 	login: string
 	password?: string
 	password_hash?: string
+	public_key?: string
 	email: string
 	status?: number
 }
@@ -41,6 +42,9 @@ const User = sequelize.define<IUserInstance>(
 			type: DataTypes.VIRTUAL
 		},
 		password_hash: {
+			type: DataTypes.STRING
+		},
+		public_key: {
 			type: DataTypes.STRING
 		},
 		email: {

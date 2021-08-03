@@ -1,12 +1,15 @@
 import axios from 'axios'
 
 
-const getAuthInfo = async ()=>{
+const createChat = async (login)=>{
 
 	try {
+
 		const authtoken = localStorage.getItem('authtoken')
-		
-		const response = await axios.get('/api/auth/info', {
+
+		const response = await axios.post('/api/chat', {
+			login
+		}, {
 			headers: {
 				authtoken
 			}
@@ -20,5 +23,5 @@ const getAuthInfo = async ()=>{
 
 
 export {
-	getAuthInfo
+	createChat
 }
