@@ -7,7 +7,7 @@ const StyledChatList = styled.ul`
 	list-style: none;
 	margin: 0;
 	border: 0;
-	border-top: solid 1px #ccc;
+	border-top: solid 1px ${props=>props.theme.inputBorder};
 	position: relative;
 
 	li {

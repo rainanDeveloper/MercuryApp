@@ -11,14 +11,28 @@ const StyledTextUserInterator = styled.section`
 	height: fit-content;
 	padding: 10px;
 	align-items: flex-start;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid ${props=>props.theme.inputBorder};
 	gap: 15px;
 	
 	button {
 		background: transparent;
-		color: #2c3e50;
+		color: ${props=>props.theme.spanTextColor};
 		border: none;
 		margin-top: 0;
+
+		svg {
+			color: ${props=>props.theme.spanTextColor};
+			fill: ${props=>props.theme.spanTextColor};
+			stroke: ${props=>props.theme.spanTextColor};
+
+			path {
+				stroke: ${props=>props.theme.spanTextColor};
+			}
+		}
+	}
+
+	button.sendBtn {
+		color: ${props=>props.theme.spanTextColor};
 	}
 
 	.tooltipContainer {
@@ -32,13 +46,13 @@ const StyledTextUserInterator = styled.section`
 		.text {
 			display: flex;
 			flex: 1 1 auto;
-			background: #dcdde1;
+			background: ${props=>props.theme.secondBg};
 			border-radius: 10px;
 			border-bottom-right-radius: 0;
 			overflow: hidden;
 			padding: 15px;
 			padding-right: 0;
-
+			
 			.textContainer {
 				display: flex;
 				max-height: 249px;
@@ -50,8 +64,9 @@ const StyledTextUserInterator = styled.section`
 				margin-right: 10px;
 				gap: 10px;
 				overflow: auto;
-
+				
 				textarea {
+					color: ${props=>props.theme.textColor};
 					height: fit-content;
 					display: flex;
 					background: transparent;
@@ -59,6 +74,10 @@ const StyledTextUserInterator = styled.section`
 					resize: none;
 					flex-grow: 1;
 					font-size: 16px !important;
+					::placeholder {
+						color: ${props=>props.theme.textColor};
+						opacity: 0.6;
+					}
 				}
 			}
 		}
@@ -70,8 +89,8 @@ const StyledTextUserInterator = styled.section`
 			bottom: 0;
 			right: -15px;
 			border: solid 15px transparent;
-			border-bottom: solid 15px #dcdde1;
-			z-index: 1
+			border-bottom: solid 15px ${props=>props.theme.secondBg};
+			z-index: 1;
 		}
 	}
 

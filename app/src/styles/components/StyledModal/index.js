@@ -25,7 +25,7 @@ const StyledModal = styled.div`
 
 		div.title {
 			padding: 10px;
-			border-bottom: solid 1px #ccc;
+			border-bottom: solid 1px ${props=>props.theme.inputBorder};
 			font-size: 1.2em;
 			color: #888;
 
@@ -37,7 +37,7 @@ const StyledModal = styled.div`
 				margin: 0;
 				padding: 8px;
 				background: transparent;
-				color: #ccc;
+				color: ${props=>props.theme.inputBorder};
 				border: none;
 			}
 		}
