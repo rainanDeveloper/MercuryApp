@@ -29,19 +29,21 @@ const GlobalStyles = createGlobalStyle`
 html, body {
 	padding: 0;
 	margin: 0;
-	background-color: white;
+	background-color: ${props=>props.theme.background};
+	color: ${props=>props.theme.textColor}
 }
 
 input, button, a {
 	padding: 8px 10px;
 	border-radius: 5px;
-	border: solid 1px #e4e4e4;
-	background-color: white;
+	border: solid 1px ${props=>props.theme.inputBorder};
+	background-color:  ${props=>props.theme.background};
+	color: ${props=>props.theme.textColor}
 }
 
 button, a {
-	background-color: #2ecc71;
-	border: solid 1px #27ae60;
+	background-color: ${props=>props.theme.primary};
+	border: solid 1px ${props=>props.theme.primaryDark};
 	color: white;
 	font-weight: 600;
 	font-size: 1.1em;

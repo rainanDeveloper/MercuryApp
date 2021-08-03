@@ -33,7 +33,7 @@ const StyledChatListItem = styled.div`
 	div.chatTitle span {
 		font-weight: 600;
 		font-size: 1.1em;
-		color: #2c3e50
+		color: ${props=>props.theme.spanTextColor}
 	}
 `
 

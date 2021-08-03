@@ -6,11 +6,14 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { sendMessage } from '../../../services/MessageService'
 import { useParams } from "react-router-dom"
 import { toast } from 'react-toastify'
+import { useTheme } from 'styled-components'
 
 const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 
 	const { id: chatId }		= useParams()
 	const [loading, setLoading]	= useState(false)
+
+	const theme = useTheme()
 
 	// Functions to modify text
 
@@ -87,7 +90,7 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 				</div>
 			</div>
 		</div>
-		<button className="sendBtn" disabled={loading} onClick={handleSendMessage}><GrSend size={22}/></button>
+		<button className="sendBtn" disabled={loading} onClick={handleSendMessage}><GrSend size={22} stroke={theme.spanTextColor}/></button>
 	</StyledTextUserInterator>
 }
 

@@ -9,7 +9,7 @@ const StyledMessage = styled.div`
 	margin-left: 10px;
 
 	span {
-		color: #2c3e50;
+		color: ${props=>props.theme.spanTextColor};
 		font-weight: 600;
 		margin-bottom: 5px;
 	}
@@ -21,7 +21,7 @@ const StyledMessage = styled.div`
 		div {
 			flex-direction: column;
 			position: relative;
-			background: #dcdde1;
+			background: ${props=>props.theme.backgroundLight};
 			padding: 10px;
 			border-radius: 5px;
 			border-bottom-left-radius: 0;
@@ -43,7 +43,7 @@ const StyledMessage = styled.div`
 				bottom: 0;
 				left: -10px;
 				border: solid 10px transparent;
-				border-bottom: solid 10px #dcdde1;
+				border-bottom: solid 10px ${props=>props.theme.backgroundLight};
 				z-index: 1
 			}
 		}
