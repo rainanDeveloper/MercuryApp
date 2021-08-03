@@ -7,10 +7,12 @@ import { DashboardWelcome } from '../components/DashboardWelcome.jsx'
 import { StyledMainBody } from '../styles/components/StyledMainBody.js'
 import { ChatMessageList } from '../components/ChatMessageList/index.jsx'
 import { FaPlus } from 'react-icons/fa'
+import { Modal } from '../components/Modal/index.jsx'
 
 function Dashboard() {
 
-	const [chats, setChats]		= useState([])
+	const [chats, setChats]					= useState([])
+	const [modalContact, setModalContact]	= useState(false)
 
 	const authtoken = localStorage.getItem('authtoken')
 
@@ -60,11 +62,23 @@ function Dashboard() {
 		}
 	}, [])
 
+	const buttons = [
+		{
+			title: 'Buscar',
+			action: ()=>{
+
+			}
+		}
+	]
+
 	return (
 		<StyledDashboard>
 			<aside>
 				<Chatlist chatList={chats}/>
-				<button className="addChat"><FaPlus size={20}/></button>
+				<button className="addChat" onClick={()=>setModalContact(true)}><FaPlus size={20}/></button>
+				<Modal title='Adicionar contato' active={modalContact} changeActive={setModalContact} buttons={buttons}>
+					
+				</Modal>
 			</aside>
 			<StyledMainBody>
 				<Switch>
