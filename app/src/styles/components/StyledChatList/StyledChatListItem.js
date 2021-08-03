@@ -6,7 +6,7 @@ const StyledChatListItem = styled.div`
 	justify-content: stretch;
 	grid-gap: 10px;
 	padding: 10px;
-	border-bottom: solid 1px #ccc;
+	border-bottom: solid 1px ${props=>props.theme.inputBorder};
 	cursor: pointer;
 
 	div.chatPic {

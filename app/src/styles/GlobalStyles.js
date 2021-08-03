@@ -38,7 +38,12 @@ input, button, a {
 	border-radius: 5px;
 	border: solid 1px ${props=>props.theme.inputBorder};
 	background-color:  ${props=>props.theme.background};
-	color: ${props=>props.theme.textColor}
+	color: ${props=>props.theme.textColor};
+	::placeholder {
+		color: ${props=>props.theme.textColor};
+		opacity: 0.6;
+	}
+
 }
 
 button, a {

@@ -11,7 +11,7 @@ const StyledTextUserInterator = styled.section`
 	height: fit-content;
 	padding: 10px;
 	align-items: flex-start;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid ${props=>props.theme.inputBorder};
 	gap: 15px;
 	
 	button {
@@ -46,7 +46,7 @@ const StyledTextUserInterator = styled.section`
 		.text {
 			display: flex;
 			flex: 1 1 auto;
-			background: ${props=>props.theme.backgroundLight};
+			background: ${props=>props.theme.secondBg};
 			border-radius: 10px;
 			border-bottom-right-radius: 0;
 			overflow: hidden;
@@ -74,6 +74,10 @@ const StyledTextUserInterator = styled.section`
 					resize: none;
 					flex-grow: 1;
 					font-size: 16px !important;
+					::placeholder {
+						color: ${props=>props.theme.textColor};
+						opacity: 0.6;
+					}
 				}
 			}
 		}
@@ -85,8 +89,8 @@ const StyledTextUserInterator = styled.section`
 			bottom: 0;
 			right: -15px;
 			border: solid 15px transparent;
-			border-bottom: solid 15px ${props=>props.theme.backgroundLight};
-			z-index: 1
+			border-bottom: solid 15px ${props=>props.theme.secondBg};
+			z-index: 1;
 		}
 	}
 

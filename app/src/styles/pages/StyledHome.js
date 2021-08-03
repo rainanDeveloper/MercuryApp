@@ -8,6 +8,8 @@ const StyledHome = styled.main`
 	flex-direction: row;
 	justify-content: center;
 	padding: 15px;
+	background: white;
+	color: #000;
 
 
 	header {
