@@ -5,7 +5,7 @@ import { ChatlistItem } from './ChatlistItem'
 const Chatlist = ({chatList=[]})=>{
 	return <StyledChatList>
 			{chatList.map((chat,i)=>{
-				return <li>
+				return <li key={i}>
 					<ChatlistItem chat={chat}/>
 				</li>
 			})}

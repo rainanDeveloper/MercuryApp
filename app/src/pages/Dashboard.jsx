@@ -23,40 +23,44 @@ function Dashboard() {
 
 	const history = useHistory()
 	
-	useEffect(async ()=>{
-		if(authtoken){
-			try{
-				const data = await getAuthInfo()
-
-				if(data){
-					setChats(data.Chats.map(c=>{
-						const chat = {}
-
-						chat.id = c.id
-						
-						if(c.Users.length==1){
-							chat.title = c.Users[0].login
-							chat.profilePicUrl = c.Users[0].avatar || '/assets/images/defaultUser.jpg'
-						}
-						else{
-							chat.title = c.name
-							chat.profilePicUrl = '/assets/images/defaultUser.jpg'
-						}
-
-						return chat
-					}))
+	useEffect(()=>{
+		async function getChats(){
+			if(authtoken){
+				try{
+					const data = await getAuthInfo()
+	
+					if(data){
+						setChats(data.Chats.map(c=>{
+							const chat = {}
+	
+							chat.id = c.id
+							
+							if(c.Users.length==1){
+								chat.title = c.Users[0].login
+								chat.profilePicUrl = c.Users[0].avatar || '/assets/images/defaultUser.jpg'
+							}
+							else{
+								chat.title = c.name
+								chat.profilePicUrl = '/assets/images/defaultUser.jpg'
+							}
+	
+							return chat
+						}))
+					}
+				}
+				catch(error){
+					if(error?.response?.status == 401){
+						localStorage.clear()
+						window.location.pathname='/login'
+					}
 				}
 			}
-			catch(error){
-				if(error?.response?.status == 401){
-					localStorage.clear()
-					window.location.pathname='/login'
-				}
+			else{
+				history.push('/login')
 			}
 		}
-		else{
-			history.push('/login')
-		}
+
+		getChats()
 	}, [])
 
 	async function handleSearchUser(event){

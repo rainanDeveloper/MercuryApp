@@ -14,15 +14,19 @@ const ChatMessageList = ()=>{
 
 	const { id: chatId } = useParams()
 
-	useEffect(async ()=>{
-		try{
-			const messages = await listMessages(chatId)
+	useEffect(()=>{
+		async function getChatMessages(){
+			try{
+				const messages = await listMessages(chatId)
+	
+				setChatHIstory(messages)
+			}
+			catch(error){
+				toast.error(`Error while trying to retrieve messages: ${error.message}`, {autoClose: 5000})
+			}
+		}
 
-			setChatHIstory(messages)
-		}
-		catch(error){
-			toast.error(`Error while trying to retrieve messages: ${error.message}`, {autoClose: 5000})
-		}
+		getChatMessages()
 	}, [chatId])
 
 	function handleAfterSubmitMessage(message){
