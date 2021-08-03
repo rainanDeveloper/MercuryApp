@@ -157,18 +157,29 @@ const UserController = {
 	async show(request: Request, response: Response){
 		const {identifier} = request.params
 
+		const {id: userId} = request['user']
+
 		const user = await User.findOne({
 			attributes: ['id', 'login'],
 			where: {
 				[Op.or]: [
 					{
 						login: identifier
+					},
+					{
+						email: identifier
 					}
 				]
 			}
 		})
 
 		if(user){
+			if(user.id==userId){
+				return response.status(400).json({
+					message: `User cannot search himself!`
+				})
+			}
+			
 			return response.json(user)
 		}
 		else{

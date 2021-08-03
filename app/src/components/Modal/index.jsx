@@ -26,7 +26,7 @@ const Modal = ({children, title, active=true, changeActive=()=>{}, buttons=[]})=
 					</div>
 					<div className="footer">
 						{buttons.map((b, i)=>{
-							return <button key={i} onClick={b.action}>{b.title}</button>
+							return <button key={i} onClick={b.action} disabled={!b.active}>{b.active?b.title:'Loading...'}</button>
 						})}
 					</div>
 				</div>

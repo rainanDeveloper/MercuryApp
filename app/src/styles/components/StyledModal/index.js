@@ -42,6 +42,10 @@ const StyledModal = styled.div`
 			}
 		}
 
+		div.body {
+			padding: 10px;
+		}
+
 		div.footer {
 			display: flex;
 			padding: 10px;

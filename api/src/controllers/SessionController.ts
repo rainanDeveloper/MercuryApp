@@ -3,6 +3,7 @@ import { User } from '@models/user'
 import { JWToken } from '../utils/JWToken'
 import { UserChat } from '@models/user_chat'
 import { Chat } from '@models/chat'
+import { Op } from 'sequelize'
 
 User.belongsToMany(Chat, { through: UserChat, foreignKey: 'userId' })
 Chat.belongsToMany(User, { through: UserChat, foreignKey: 'chatId' })
@@ -88,7 +89,23 @@ const SessionController = {
 							model: Chat,
 							include: [
 								{
-									model: User
+									model: User,
+									where: {
+										[Op.and]: [
+											{
+												login: {
+													[Op.ne]: data.login
+												}
+											},
+											{
+												email: {
+													[Op.ne]: data.login
+												}
+											}
+										]
+									},
+									required: false,
+									attributes: ['id', 'login', 'email', 'avatar', 'public_key']
 								}
 							]
 						}

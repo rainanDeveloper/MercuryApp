@@ -3,6 +3,7 @@ import { UserChat } from '@models/user_chat'
 import { Chat } from '@models/chat'
 import { User } from '@models/user'
 import { sequelize } from '@models/index'
+import { Op } from 'sequelize'
 
 User.belongsToMany(Chat, { through: UserChat, foreignKey: 'userId' })
 Chat.belongsToMany(User, { through: UserChat, foreignKey: 'chatId' })
@@ -15,13 +16,26 @@ const ChatController = {
 
 		const toUser = await User.findOne({
 			where: {
-				login
+				[Op.or]: [
+					{
+						login
+					},
+					{
+						email: login
+					}
+				]
 			}
 		})
 		
 		if(!toUser){
 			return response.status(404).json({
 				message: `Error: user ${login} not found!`
+			})
+		}
+
+		if(toUser.id==userId){
+			return response.status(400).json({
+				message: `User cannot create a chat with yourself!`
 			})
 		}
 
@@ -39,7 +53,7 @@ const ChatController = {
 
 			await UserChat.create({
 				chatId: newChat.id,
-				userId
+				userId: toUser.id
 			}, {
 				transaction
 			})
@@ -49,7 +63,14 @@ const ChatController = {
 			await newChat.reload({
 				include: [
 					{
-						model: User
+						model: User,
+						where: {
+							id: {
+								[Op.ne]: userId
+							}
+						},
+						required: false,
+						attributes: ['id', 'login', 'email', 'avatar', 'public_key']
 					}
 				]
 			})
@@ -65,6 +86,9 @@ const ChatController = {
 				error
 			})
 		}
+	},
+	async index(){
+
 	}
 }
 
