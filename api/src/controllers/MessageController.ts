@@ -32,6 +32,9 @@ const MessageController = {
 						model: User,
 						attributes: ['id', 'login']
 					}
+				],
+				order: [
+					['timestamp', 'ASC']
 				]
 			})
 	
