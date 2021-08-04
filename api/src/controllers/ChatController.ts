@@ -89,6 +89,38 @@ const ChatController = {
 	},
 	async index(){
 
+	},
+	async show(request: Request, response: Response){
+		const {id} = request.params
+
+		const {id: userId} = request['user']
+
+		const chat = await Chat.findOne({
+			where: {
+				id
+			},
+			include: [
+				{
+					model: User,
+					where: {
+						id: {
+							[Op.ne]: userId
+						}
+					},
+					required: false,
+					attributes: ['id', 'login', 'email', 'avatar', 'public_key']
+				}
+			]
+		})
+
+		if(chat){
+			return response.json(chat)
+		}
+		else{
+			return response.status(404).json({
+				message: `Chat ${id} not found!`
+			})
+		}
 	}
 }
 

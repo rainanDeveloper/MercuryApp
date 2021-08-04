@@ -12,6 +12,7 @@ router.get('/api/user/:identifier', SessionController.validationMiddleware, User
 router.get('/api/messages', SessionController.validationMiddleware, MessageController.index)
 router.get('/api/auth/info', SessionController.show)
 router.get('/api/user/confirmation/:token', activateUser)
+router.get('/api/chat/:id', SessionController.validationMiddleware, ChatController.show)
 router.post('/api/user', UserController.store)
 router.post('/api/login', SessionController.store)
 router.post('/api/messages', SessionController.validationMiddleware, MessageController.store)
