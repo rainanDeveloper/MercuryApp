@@ -21,6 +21,16 @@ const StyledChatList = styled.ul`
 		padding: 0;
 		margin: 0;
 	}
+
+	li:hover {
+		background: #eeeeee22;
+		transition: none;
+	}
+
+	li.active {
+		background: ${props=>props.theme.backgroundLight};
+		color: ${props=>props.theme.textColor};
+	}
 `
 
 export { StyledChatList }
