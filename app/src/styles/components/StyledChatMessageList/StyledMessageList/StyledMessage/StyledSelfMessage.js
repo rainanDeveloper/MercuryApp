@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../../colors";
 
 
 const StyledSelfMessage = styled.div`
@@ -11,7 +12,7 @@ const StyledSelfMessage = styled.div`
 
 	div {
 		flex-direction: column;
-		background: #192a56;
+		background: ${colors.secondary};
 		color: white;
 		position: relative;
 		padding: 10px;
@@ -24,7 +25,7 @@ const StyledSelfMessage = styled.div`
 		span.timestamp{
 			position: absolute;
 			font-size: 0.6em;
-			color: #888;
+			color: ${colors.metadata};
 			bottom: 5px;
 			right: 5px;
 		}
@@ -35,7 +36,7 @@ const StyledSelfMessage = styled.div`
 			bottom: 0;
 			right: -10px;
 			border: solid 10px transparent;
-			border-bottom: solid 10px #192a56;
+			border-bottom: solid 10px ${colors.secondary};
 			z-index: 1
 		}
 	}

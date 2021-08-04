@@ -1,5 +1,6 @@
 
 import styled from 'styled-components';
+import { colors } from '../../colors';
 
 const StyledModal = styled.div`
 	display: flex;
@@ -10,13 +11,13 @@ const StyledModal = styled.div`
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background: #88888855;
+	background: ${colors.translucency};
 	padding: 10px;
 	z-index: 3;
 
 	div.modal {
 		position: relative;
-		background: white;
+		background: ${props=>props.theme.background};
 		padding: 10px;
 		max-width: 450px;
 		width: 100%;
@@ -27,7 +28,6 @@ const StyledModal = styled.div`
 			padding: 10px;
 			border-bottom: solid 1px ${props=>props.theme.inputBorder};
 			font-size: 1.2em;
-			color: #888;
 
 			.close {
 				display: flex;

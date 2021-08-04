@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
+import { colors } from './colors'
+
 
 const GlobalStyles = createGlobalStyle`
 
@@ -47,8 +49,8 @@ input, button, a {
 }
 
 button, a {
-	background-color: ${props=>props.theme.primary};
-	border: solid 1px ${props=>props.theme.primaryDark};
+	background-color: ${colors.primary};
+	border: solid 1px ${colors.primaryDark};
 	color: white;
 	font-weight: 600;
 	font-size: 1.1em;

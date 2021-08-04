@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../../../colors";
 
 
 const StyledMessage = styled.div`
@@ -21,7 +22,7 @@ const StyledMessage = styled.div`
 		div {
 			flex-direction: column;
 			position: relative;
-			background: ${props=>props.theme.backgroundLight};
+			background: ${props=>props.theme.secondBg};
 			padding: 10px;
 			border-radius: 5px;
 			border-bottom-left-radius: 0;
@@ -32,7 +33,7 @@ const StyledMessage = styled.div`
 			span.timestamp{
 				position: absolute;
 				font-size: 0.6em;
-				color: #888;
+				color: ${colors.metadata};
 				bottom: 0;
 				right: 5px;
 			}
@@ -43,7 +44,7 @@ const StyledMessage = styled.div`
 				bottom: 0;
 				left: -10px;
 				border: solid 10px transparent;
-				border-bottom: solid 10px ${props=>props.theme.backgroundLight};
+				border-bottom: solid 10px ${props=>props.theme.secondBg};
 				z-index: 1
 			}
 		}

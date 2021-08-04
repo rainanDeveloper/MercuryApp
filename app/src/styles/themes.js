@@ -7,9 +7,7 @@ const themes = {
 		backgroundLight: '#485460',
 		secondBg: '#636e72',
 		textColor: '#FFFFFF',
-		spanTextColor: '#96abbc',
-		primary: '#2ecc71',
-		primaryDark: '#27ae60',
+		spanTextColor: '#96abbc'
 	},
 	light: {
 		inputBorder: '#e4e4e4',
@@ -17,9 +15,7 @@ const themes = {
 		backgroundLight: '#f6f8fa',
 		secondBg: '#d2ded3',
 		textColor: '#000000',
-		spanTextColor: '#2c3e50',
-		primary: '#2ecc71',
-		primaryDark: '#27ae60',
+		spanTextColor: '#2c3e50'
 	}
 }
 
