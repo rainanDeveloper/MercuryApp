@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import {Chatlist} from '../components/ChatList/index.jsx'
-import { StyledDashboard } from '../styles/pages/StyledDashboard.js'
+import { StyledDashboard } from '../styles/pages/StyledDashboard'
 import { useHistory, Switch, Route } from 'react-router-dom'
-import { getAuthInfo } from '../services/AuthInfoService.js'
-import { DashboardWelcome } from '../components/DashboardWelcome.jsx'
-import { StyledMainBody } from '../styles/components/StyledMainBody.js'
+import { getAuthInfo } from '../services/AuthInfoService'
+import { DashboardWelcome } from '../components/DashboardWelcome'
+import { StyledMainBody } from '../styles/components/StyledMainBody'
 import { ChatMessageList } from '../components/ChatMessageList/index.jsx'
 import { FaPlus } from 'react-icons/fa'
 import { Modal } from '../components/Modal/index.jsx'
-import { userSearch } from '../services/UserService.js'
-import { createChat } from '../services/ChatService.js'
+import { userSearch } from '../services/UserService'
+import { createChat } from '../services/ChatService'
 import { toast } from 'react-toastify';
 
 function Dashboard() {
