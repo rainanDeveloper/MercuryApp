@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyledTextUserInterator } from '../../../styles/components/StyledChatMessageList/StyledTextUserInterator'
 import { FaImage, FaRegSmile } from 'react-icons/fa'
 import { GrSend } from 'react-icons/gr'
@@ -7,13 +7,32 @@ import { sendMessage } from '../../../services/MessageService'
 import { useParams } from "react-router-dom"
 import { toast } from 'react-toastify'
 import { useTheme } from 'styled-components'
+import { showChatInfo } from '../../../services/ChatService'
 
 const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 
-	const { id: chatId }		= useParams()
-	const [loading, setLoading]	= useState(false)
+	const { id: chatId }					= useParams()
+	const [loading, setLoading]				= useState(false)
+	const [destPublicKey, setDestPublicKey] = useState('')
 
 	const theme = useTheme()
+
+	useEffect(()=>{
+		async function getChatInfo(){
+			try{
+				const chat = await showChatInfo(chatId)
+
+				if(chat['Users'].length>0){
+					setDestPublicKey(chat['Users'][0].public_key||'')
+				}
+			}
+			catch(error){
+				toast.error(`Error while trying to retrieve chat info: ${error.message}`, {autoClose: 5000})
+			}
+		}
+
+		getChatInfo()
+	}, [])
 
 	// Functions to modify text
 
@@ -67,7 +86,7 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 					content: value,
 					timestamp: Date.now(),
 					content_type: 'text'
-				})
+				}, destPublicKey)
 				afterSubmit(message)
 			}
 			catch(error){
