@@ -1,4 +1,4 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 const iv = Buffer.from("9ee0bf151a825661bf86b70f47229992", 'hex')
 
 const encryptContent = (data, hex_key)=>{
@@ -53,7 +53,7 @@ const decryptContent = (cryptedData, hex_key)=>{
 	return decrypted
 }
 
-module.exports = {
+export {
 	encryptContent,
 	decryptContent
 }
