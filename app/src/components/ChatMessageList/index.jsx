@@ -8,6 +8,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import { showChatInfo } from '../../services/ChatService'
 import { generateSharedSecretFromKeys } from '../../utils/createECDHPair'
 import { decryptContent } from '../../utils/AESEncryption'
+import io from "socket.io-client"
+
 
 const ChatMessageList = ()=>{
 
@@ -23,6 +25,7 @@ const ChatMessageList = ()=>{
 
 	useEffect(()=>{
 		async function getChatMessages(){
+			
 			try{
 
 				const chat = await showChatInfo(chatId)
