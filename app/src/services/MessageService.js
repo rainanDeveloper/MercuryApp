@@ -1,12 +1,30 @@
 import axios from 'axios'
+import { encryptContent, decryptContent } from '../utils/AESEncryption'
+import {generateSharedSecretFromKeys} from '../utils/createECDHPair'
 
-
-const sendMessage = async (message)=>{
+const sendMessage = async (message, dest_public_key)=>{
 
 	try {
 		const authtoken = localStorage.getItem('authtoken')
+		const privateKey = localStorage.getItem('privateKey')
 
-		const response = await axios.post('/api/messages', message, {
+		const {
+			chatId,
+			content,
+			timestamp,
+			content_type
+		} = message
+
+		const sharedKey = generateSharedSecretFromKeys(privateKey, dest_public_key)
+
+		const encMessage = {
+			chatId,
+			content: encryptContent(content, sharedKey),
+			timestamp,
+			content_type
+		}
+
+		const response = await axios.post('/api/messages', encMessage, {
 			headers: {
 				authtoken
 			}
@@ -18,9 +36,10 @@ const sendMessage = async (message)=>{
 	}
 }
 
-const listMessages = async (chatId)=>{
+const listMessages = async (chatId, dest_public_key)=>{
 	try {
 		const authtoken = localStorage.getItem('authtoken')
+		const privateKey = localStorage.getItem('privateKey')
 
 		const response = await axios.get('/api/messages', {
 			params: {
@@ -31,7 +50,13 @@ const listMessages = async (chatId)=>{
 			}
 		})
 
-		return await response.data
+		const sharedKey = generateSharedSecretFromKeys(privateKey, dest_public_key)
+
+		return await response.data.map(m=>{
+			m.content = decryptContent(m.content, sharedKey)
+
+			return m
+		})
 	} catch (error) {
 		throw new Error(error.response?.data?.message||error.message)
 	}

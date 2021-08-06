@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom"
 import { listMessages } from '../../services/MessageService'
 import { toast, ToastContainer } from 'react-toastify'
 import { showChatInfo } from '../../services/ChatService'
+import { generateSharedSecretFromKeys } from '../../utils/createECDHPair'
+import { decryptContent } from '../../utils/AESEncryption'
 
 const ChatMessageList = ()=>{
 
@@ -17,13 +19,26 @@ const ChatMessageList = ()=>{
 
 	const [chatTitle, setChatTitle] 		= useState('')
 	const [chatAvatar, setChatAvatar] 		= useState('')
+	const [destPublicKey, setDestPublicKey]	= useState(localStorage.getItem('publicKey'))
 
 	useEffect(()=>{
 		async function getChatMessages(){
 			try{
-				const messages = await listMessages(chatId)
+
+				const chat = await showChatInfo(chatId)
+
+				if(chat['Users'].length>0){
+					const messages = await listMessages(chatId, chat['Users'][0].public_key)
 	
-				setChatHistory(messages)
+					setChatHistory(messages)
+				}
+				else{
+					const messages = await listMessages(chatId, localStorage.getItem('publicKey'))
+	
+					setChatHistory(messages)
+				}
+
+				
 			}
 			catch(error){
 				toast.error(`Error while trying to retrieve messages: ${error.message}`, {autoClose: 5000})
@@ -39,14 +54,18 @@ const ChatMessageList = ()=>{
 				if(chat['Users'].length>0){
 					setChatTitle(chat['Users'][0].login||'')
 					setChatAvatar(chat['Users'][0].avatar||'/assets/images/defaultUser.jpg')
+					setDestPublicKey(chat['Users'][0].public_key||localStorage.getItem('publicKey'))
 				}
 				else{
 					setChatTitle(chat.name||'')
 					setChatAvatar('/assets/images/defaultUser.jpg')
+					setDestPublicKey(localStorage.getItem('publicKey'))
+
 				}
 			}
 			catch(error){
 				toast.error(`Error while trying to retrieve chat info: ${error.message}`, {autoClose: 5000})
+
 			}
 		}
 
@@ -54,7 +73,15 @@ const ChatMessageList = ()=>{
 	}, [chatId])
 
 	function handleAfterSubmitMessage(message){
-		setChatHistory(oldChatHistory=>[...oldChatHistory, message])
+		setChatHistory(oldChatHistory=>{
+			const privateKey = localStorage.getItem('privateKey')
+			
+			const sharedKey = generateSharedSecretFromKeys(privateKey, destPublicKey)
+
+			message.content = decryptContent(message.content, sharedKey)
+
+			return [...oldChatHistory, message]
+		})
 
 		setMessage('')
 	}
