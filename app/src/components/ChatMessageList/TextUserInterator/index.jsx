@@ -13,7 +13,7 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 
 	const { id: chatId }					= useParams()
 	const [loading, setLoading]				= useState(false)
-	const [destPublicKey, setDestPublicKey] = useState('')
+	const [destPublicKey, setDestPublicKey] = useState(localStorage.getItem('publicKey'))
 
 	const theme = useTheme()
 
@@ -23,7 +23,10 @@ const TextUserInterator = ({value='', onChange=()=>{}, afterSubmit=()=>{}})=>{
 				const chat = await showChatInfo(chatId)
 
 				if(chat['Users'].length>0){
-					setDestPublicKey(chat['Users'][0].public_key||'')
+					setDestPublicKey(chat['Users'][0].public_key||localStorage.getItem('publicKey'))
+				}
+				else{
+					setDestPublicKey(localStorage.getItem('publicKey'))
 				}
 			}
 			catch(error){
