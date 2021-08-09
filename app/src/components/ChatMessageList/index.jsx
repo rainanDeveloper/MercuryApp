@@ -8,21 +8,29 @@ import { toast, ToastContainer } from 'react-toastify'
 import { showChatInfo } from '../../services/ChatService'
 import { generateSharedSecretFromKeys } from '../../utils/createECDHPair'
 import { decryptContent } from '../../utils/AESEncryption'
-import io from "socket.io-client"
+import { proxy } from '../../../package.json'
+const isDev = process.env.NODE_ENV === 'development'
+
 
 
 const ChatMessageList = ()=>{
-
+	
 	const [message, setMessage] = useState('')
-
+	
 	const [chatHistory, setChatHistory] = useState([])
-
+	
 	const { id: chatId } = useParams()
-
+	
 	const [chatTitle, setChatTitle] 		= useState('')
 	const [chatAvatar, setChatAvatar] 		= useState('')
 	const [destPublicKey, setDestPublicKey]	= useState(localStorage.getItem('publicKey'))
+	const wsClient = new WebSocket(isDev?proxy.replace(/^http/g, 'ws'):`ws://${window?.location?.host}`)
 
+	wsClient.addEventListener('open', () => {
+		// Subscribes to the chat with id "chatId"
+		
+	})
+	
 	useEffect(()=>{
 		async function getChatMessages(){
 			

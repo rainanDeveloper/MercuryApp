@@ -1,20 +1,24 @@
 import { app } from './app'
-import { Server } from "socket.io"
-import http from 'http'
+import ws from 'ws'
 
 require('dotenv').config({
 	path: '.env'
 })
 
-const io = new Server(http.createServer(app))
+// Setup websocket server
+const wsServer = new ws.Server({ noServer: true })
+wsServer.on('connection', socket => {
+	socket.on('message', message => console.log(message))
+})
 
 const port = process.env.PORT || 8080  // Change to use on heroku app
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
 	console.log(`Server listening on the port:${port}`)
 })
 
-io.on('connection', function (socket){
-	console.log(`Client connected:`)
-	console.log(socket.client)
+server.on('upgrade', (request, socket, head)=>{
+	wsServer.handleUpgrade(request, socket, head, socket => {
+		wsServer.emit('connection', socket, request)
+	})
 })
