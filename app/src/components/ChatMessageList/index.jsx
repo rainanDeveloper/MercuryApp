@@ -26,21 +26,26 @@ const ChatMessageList = ()=>{
 	
 	useEffect(()=>{
 
-		async function joinChat(chatId){
-			wsClient.addEventListener('open', () => {
-				// Subscribes to the chat with id "chatId"
+		async function getChatInfo(){
+			try{
+				const chat = await showChatInfo(chatId)
 
-				const data = JSON.stringify({
-					meta: 'join',
-					chatId
-				})
+				if(chat['Users'].length>0){
+					setChatTitle(chat['Users'][0].login||'')
+					setChatAvatar(chat['Users'][0].avatar||'/assets/images/defaultUser.jpg')
+					setDestPublicKey(chat['Users'][0].public_key||localStorage.getItem('publicKey'))
+				}
+				else{
+					setChatTitle(chat.name||'')
+					setChatAvatar('/assets/images/defaultUser.jpg')
+					setDestPublicKey(localStorage.getItem('publicKey'))
 
-				wsClient.send(data)
-			})
-		}
+				}
+			}
+			catch(error){
+				toast.error(`Error while trying to retrieve chat info: ${error.message}`, {autoClose: 5000})
 
-		if(chatId){
-			joinChat(chatId)
+			}
 		}
 
 		async function getChatMessages(){
@@ -67,43 +72,64 @@ const ChatMessageList = ()=>{
 			}
 		}
 
-		getChatMessages()
+		async function joinChat(chatId){
+			wsClient.addEventListener('open', () => {
+				// Subscribes to the chat with id "chatId"
 
-		async function getChatInfo(){
-			try{
-				const chat = await showChatInfo(chatId)
+				const data = JSON.stringify({
+					meta: 'join',
+					chatId
+				})
 
-				if(chat['Users'].length>0){
-					setChatTitle(chat['Users'][0].login||'')
-					setChatAvatar(chat['Users'][0].avatar||'/assets/images/defaultUser.jpg')
-					setDestPublicKey(chat['Users'][0].public_key||localStorage.getItem('publicKey'))
+				wsClient.send(data)
+
+				wsClient.onmessage = (event)=>{
+					const message = JSON.parse(event.data)
+
+					handleChatReceiveMessage(message)
+					
 				}
-				else{
-					setChatTitle(chat.name||'')
-					setChatAvatar('/assets/images/defaultUser.jpg')
-					setDestPublicKey(localStorage.getItem('publicKey'))
-
-				}
-			}
-			catch(error){
-				toast.error(`Error while trying to retrieve chat info: ${error.message}`, {autoClose: 5000})
-
-			}
+			})
 		}
 
+		getChatMessages()
 		getChatInfo()
+		if(chatId){
+			joinChat(chatId)
+		}
 	}, [chatId])
 
-	function handleAfterSubmitMessage(message){
+	async function handleChatReceiveMessage(message){
+		const chat = await showChatInfo(chatId)
+
+		var publicKey = localStorage.getItem('publicKey')
+
+		if(chat['Users'].length>0){
+			publicKey = chat['Users'][0].public_key||localStorage.getItem('publicKey')
+		}
+
 		setChatHistory(oldChatHistory=>{
 			const privateKey = localStorage.getItem('privateKey')
 			
-			const sharedKey = generateSharedSecretFromKeys(privateKey, destPublicKey)
+			const sharedKey = generateSharedSecretFromKeys(privateKey, publicKey)
 
 			message.content = decryptContent(message.content, sharedKey)
 
 			return [...oldChatHistory, message]
 		})
+	}
+
+	function handleAfterSubmitMessage(message){
+		if(wsClient.readyState==1){
+			const data = JSON.stringify({
+				message,
+				chatId
+			})
+
+			wsClient.send(data)
+		}
+
+		
 
 		setMessage('')
 	}

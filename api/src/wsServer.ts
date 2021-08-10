@@ -37,7 +37,7 @@ wsServer.on('connection', socket => {
 		}
 		else if(! meta) {
 			// send the message to all in the room
-			Object.entries(chats[chatId]).forEach(([, sock]: Array<typeof socket>) => sock.send({ message }));
+			Object.entries(chats[chatId]).forEach(([, sock]: Array<typeof socket>) => sock.send(JSON.stringify(message)));
 		}
 	})
 
