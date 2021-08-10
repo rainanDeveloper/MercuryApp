@@ -11,8 +11,6 @@ import { decryptContent } from '../../utils/AESEncryption'
 import { proxy } from '../../../package.json'
 const isDev = process.env.NODE_ENV === 'development'
 
-
-
 const ChatMessageList = ()=>{
 	
 	const [message, setMessage] = useState('')
@@ -25,13 +23,26 @@ const ChatMessageList = ()=>{
 	const [chatAvatar, setChatAvatar] 		= useState('')
 	const [destPublicKey, setDestPublicKey]	= useState(localStorage.getItem('publicKey'))
 	const wsClient = new WebSocket(isDev?proxy.replace(/^http/g, 'ws'):`ws://${window?.location?.host}`)
-
-	wsClient.addEventListener('open', () => {
-		// Subscribes to the chat with id "chatId"
-		
-	})
 	
 	useEffect(()=>{
+
+		async function joinChat(chatId){
+			wsClient.addEventListener('open', () => {
+				// Subscribes to the chat with id "chatId"
+
+				const data = JSON.stringify({
+					meta: 'join',
+					chatId
+				})
+
+				wsClient.send(data)
+			})
+		}
+
+		if(chatId){
+			joinChat(chatId)
+		}
+
 		async function getChatMessages(){
 			
 			try{
