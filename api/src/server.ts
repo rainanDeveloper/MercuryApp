@@ -1,4 +1,4 @@
-import { wsServer } from 'wsServer'
+import { wsServer } from './wsServer'
 import { app } from './app'
 
 require('dotenv').config({
