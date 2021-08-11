@@ -11,8 +11,8 @@ function Home() {
 			<header>
 				<h1>Mercury App</h1>
 				<div className="initialPageButtons">
-					<Link to="./login">Login</Link>
-					<Link to="./signup">Sign Up</Link>
+					<Link to="/login">Login</Link>
+					<Link to="/signup">Sign Up</Link>
 				</div>
 			</header>
 		</StyledHome>

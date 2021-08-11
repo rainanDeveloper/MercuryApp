@@ -1,34 +1,56 @@
 import { createGlobalStyle } from 'styled-components'
+import { colors } from './colors'
+
 
 const GlobalStyles = createGlobalStyle`
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-size: 14px;
+	font-size: 16px;
 	outline: none;
-	font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
+	font-family: 'Segoe UI Emoji', Roboto, -apple-system, BlinkMacSystemFont, 'Oxygen',
 		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 		sans-serif;
-	font-weight: 300;
+	font-weight: 400;
+
+	::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #88888877;
+	}
 }
 
 html, body {
 	padding: 0;
 	margin: 0;
-	background-color: white;
+	background-color: ${props=>props.theme.background};
+	color: ${props=>props.theme.textColor}
 }
 
 input, button, a {
 	padding: 8px 10px;
 	border-radius: 5px;
-	border: solid 1px #e4e4e4;
-	background-color: white;
+	border: solid 1px ${props=>props.theme.inputBorder};
+	background-color:  ${props=>props.theme.background};
+	color: ${props=>props.theme.textColor};
+	::placeholder {
+		color: ${props=>props.theme.textColor};
+		opacity: 0.6;
+	}
+
 }
 
 button, a {
-	background-color: #2ecc71;
-	border: solid 1px #27ae60;
+	background-color: ${colors.primary};
+	border: solid 1px ${colors.primaryDark};
 	color: white;
 	font-weight: 600;
 	font-size: 1.1em;

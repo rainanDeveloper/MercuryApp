@@ -6,7 +6,7 @@ const StyledChatListItem = styled.div`
 	justify-content: stretch;
 	grid-gap: 10px;
 	padding: 10px;
-	border-bottom: solid 1px #ccc;
+	border-bottom: solid 1px ${props=>props.theme.inputBorder};
 	cursor: pointer;
 
 	div.chatPic {
@@ -33,7 +33,7 @@ const StyledChatListItem = styled.div`
 	div.chatTitle span {
 		font-weight: 600;
 		font-size: 1.1em;
-		color: #2c3e50
+		color: ${props=>props.theme.spanTextColor}
 	}
 `
 

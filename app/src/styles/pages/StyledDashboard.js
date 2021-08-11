@@ -8,8 +8,16 @@ const StyledDashboard = styled.main`
 	aside {
 		width: 30%;
 		min-width: 350px;
-		border-right: solid 1px #ccc;
+		border-right: solid 1px ${props=>props.theme.inputBorder};
 		height: 100vh;
+		position: relative;
+
+		button.addChat {
+			position: absolute;
+			bottom: 15px;
+			right: 15px;
+			border-radius: 50%;
+		}
 	}
 `
 

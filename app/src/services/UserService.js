@@ -1,12 +1,13 @@
 import axios from 'axios'
 
 
-const getAuthInfo = async ()=>{
+const userSearch = async (login)=>{
 
 	try {
+
 		const authtoken = localStorage.getItem('authtoken')
-		
-		const response = await axios.get('/api/auth/info', {
+
+		const response = await axios.get(`/api/user/${login}`, {
 			headers: {
 				authtoken
 			}
@@ -20,5 +21,5 @@ const getAuthInfo = async ()=>{
 
 
 export {
-	getAuthInfo
+	userSearch
 }

@@ -1,6 +1,6 @@
 {
 	"name": "mercury-app",
-	"version": "0.3.2",
+	"version": "1.0.0",
 	"main": "index.js",
 	"repository": "https://github.com/rainanDeveloper/MercuryApp.git",
 	"author": "Rainan Miranda de Jesus <rainan.jesus@pm.me>",
@@ -11,5 +11,11 @@
 		"buildApp": "cd app && npm install",
 		"build": "npm run buildApi && npm run buildApp",
 		"heroku-postbuild": "npm run build"
+	},
+	"dependencies": {
+		"@types/node": "^16.4.12",
+		"@types/react": "^17.0.15",
+		"@types/react-dom": "^17.0.9",
+		"typescript": "^4.3.5"
 	}
 }
