@@ -10,37 +10,40 @@ Clone the repository:
 git clone https://github.com/rainanDeveloper/MercuryApp.git
 ```
 
-Enter the directory and build the application
+Enter the directory
 
 ```
 cd MercuryApp
 ```
 
-Enter the ``app`` directory and install dependencies:
+Enter the ``app`` directory edit ``api/.env`` file, with the following structure:
 
 ```
-yarn install
+DB_USER=[database_user]
+DB_PASS=[database_password]
+DB_HOST=[database_host]
+DB_PORT=[database_port]
+DB_DIALECT=[database_dialect]
+MAILER_HOST=[smtp_email_host]
+MAILER_PORT=[smtp_email_port]
+MAILER_USER=[smtp_email_user]
+MAILER_PASS=[smtp_email_password]
+MAILER_SECURE=[use_tls]
+APPLICATION_MAIL=[email]
+APP_SECRET=[random_secret]
 ```
 
-Then do the same on the ``api`` folder:
+if you do not configure the ``DB_HOST`` variable, it will be the default value ``localhost``, the same will happen with the defaults to ``DB_PORT`` and ``DB_DIALECT``, wich will be ``3306`` and ``mysql`` respectivelly.
+
+Now you run:
 
 ```
-yarn install
+yarn build
 ```
-
-## Installing the Database
-
-Run the following command to create the default database:
-
-```
-npx sequelize-cli db:migrate
-```
-
-This will create a sqlite database on ``db/`` with the name ``database.sqlite``.
 
 ## Running application
 
-In the folder ``/api`` run:
+On the root folder, run:
 
 ```
 yarn start
