@@ -22,7 +22,8 @@ const UserController = {
 		const {
 			login,
 			password,
-			email
+			email,
+			public_key
 		} = request.body
 
 		const transaction = await sequelize.transaction()
@@ -34,7 +35,8 @@ const UserController = {
 			const userCreated = await User.create({
 				login,
 				password,
-				email
+				email,
+				public_key
 			}, {transaction})
 
 			const newChat = await Chat.create({
