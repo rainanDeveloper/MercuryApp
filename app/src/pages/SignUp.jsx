@@ -4,6 +4,7 @@ import { passwordStrength } from '../utils/password'
 import { createUser } from '../services/SignUpService'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { generateKeyFromData } from '../utils/createECDHPair'
 
 const SignUp = ()=>{
 
@@ -62,7 +63,11 @@ const SignUp = ()=>{
 		setLoading(true)
 
 		try{
-			const myself = await createUser(login, email, password)
+
+			// Generate private and public keys
+			const [, publicKey] = generateKeyFromData({login, email, password})
+
+			const myself = await createUser(login, email, password, publicKey)
 
 			toast.success(`user successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
 		}
