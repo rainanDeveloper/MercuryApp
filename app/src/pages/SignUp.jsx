@@ -3,6 +3,7 @@ import { StyledSignUp } from '../styles/pages/StyledSignUp'
 import { passwordStrength } from '../utils/password'
 import { createUser } from '../services/SignUpService'
 import { ToastContainer, toast } from 'react-toastify'
+import { Link, useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { generateKeyFromData } from '../utils/createECDHPair'
 
@@ -14,6 +15,7 @@ const SignUp = ()=>{
 	const [passwordConfirm, setPasswordConfirm]	= useState('')
 	const [loading, setLoading]					= useState(false)
 
+	const history = useHistory()
 
 	function handleLoginChange(event){
 		event.preventDefault()
@@ -57,6 +59,16 @@ const SignUp = ()=>{
 		}
 	}
 
+	function handleRedirectAfterSignUpTimer(event){
+		event.preventDefault()
+
+		const timer = setTimeout(()=>{
+			history.push('/login')
+		}, 6000)
+
+		return ()=>clearTimeout(timer)
+	}
+
 	async function handleSignUpFormSubmit(event){
 		event.preventDefault()
 
@@ -69,7 +81,9 @@ const SignUp = ()=>{
 
 			const myself = await createUser(login, email, password, publicKey)
 
-			toast.success(`user successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
+			toast.success(`User successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
+
+			handleRedirectAfterSignUpTimer(event)
 		}
 		catch(error){
 			toast.error(`Error while trying to Sign Up: ${error.message}`, {autoClose: 5000})
@@ -136,6 +150,9 @@ const SignUp = ()=>{
 					onBlur={handlePasswordConfirmBlur}
 					required
 					/>
+				</div>
+				<div className="accountOptionSwitcher">
+					Already have an account? <Link to="/login">Login</Link>
 				</div>
 				<button disabled={loading}>{loading?'Signing Up...':'Sign Up'}</button>
 			</form>
