@@ -36,7 +36,7 @@ const StyledSignUp  = styled.main`
 		display: flex;
 		flex-direction: column;
 		padding: 15px;
-		background-color: ${props=>props.theme.background};
+		background-color: ${props=>props.theme.backgroundLight};
 		border-radius: 5px;
 		border: solid 1px ${props=>props.theme.inputBorder};
 		gap: 10px;
