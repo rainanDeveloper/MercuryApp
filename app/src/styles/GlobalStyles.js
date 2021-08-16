@@ -65,6 +65,20 @@ a {
 	margin-top: 0;
 }
 
+.accountOptionSwitcher {
+	display: flex;
+	gap: 5px;
+	justify-content: center;
+	align-items: center;
+	a{
+		background: none;
+		border: none;
+		font-size: initial;
+		padding: initial;
+		color: ${colors.secondary}
+	}
+}
+
 button:hover {
 	filter: brightness(110%);
 }
