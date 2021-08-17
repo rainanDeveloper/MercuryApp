@@ -53,6 +53,16 @@ const StyledSignUp  = styled.main`
 		background-color: red;
 	}
 
+	.passQuality {
+		display: flex;
+		justify-content: space-between;
+
+		span {
+			color: ${props => props.theme.spanTextColor};
+			font-size: 0.8em;
+		}
+	}
+
 `
 
 export { StyledSignUp }

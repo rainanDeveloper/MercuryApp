@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyledSignUp } from '../styles/pages/StyledSignUp'
 import { passwordStrength } from '../utils/password'
 import { createUser } from '../services/SignUpService'
@@ -9,13 +9,46 @@ import { generateKeyFromData } from '../utils/createECDHPair'
 
 const SignUp = ()=>{
 
-	const [login, setLogin]						= useState('')
-	const [email, setEmail]						= useState('')
-	const [password, setPassword]				= useState('')
-	const [passwordConfirm, setPasswordConfirm]	= useState('')
-	const [loading, setLoading]					= useState(false)
+	const [login, setLogin]									= useState('')
+	const [email, setEmail]									= useState('')
+	const [password, setPassword]							= useState('')
+	const [passwordConfirm, setPasswordConfirm]				= useState('')
+	const [loading, setLoading]								= useState(false)
+	const [pwdStrIndicator, setPwdStrIndicator]				= useState(0)
+	const [passwordEntropy, setPasswordEntropy]				= useState(0)
+	const [passwordQuality, setPasswordQuality] 			= useState('Poor')
+
+	const qualityColors = {
+		Poor: "#e22006",
+		Weak: "#b85904",
+		Good: "#64a416",
+		Excellent: "#50cf01"
+	}
+
+	const passIndcLength = 200
 
 	const history = useHistory()
+
+	useEffect(()=>{
+		const entropy = passwordStrength(password)
+
+		const strengtIndc = entropy*100/passIndcLength
+		
+		setPasswordEntropy(entropy)
+		setPwdStrIndicator(strengtIndc)
+		setPasswordQuality(calculateQuality(entropy))
+	}, [password])
+
+	function calculateQuality(entropy){
+		if (entropy < 40) {
+        	return "Poor"
+    	} else if (entropy < 65) {
+        	return "Weak"
+    	} else if (entropy < 100) {
+        	return "Good"
+    	}
+    	return "Excellent"
+	}
 
 	function handleLoginChange(event){
 		event.preventDefault()
@@ -32,9 +65,11 @@ const SignUp = ()=>{
 	function handlePasswordChange(event){
 		event.preventDefault()
 
+		const entropy = passwordStrength(event.target.value)
+
 		setPassword(event.target.value.replace(/\s?\t?\n?/g, ''))
 
-		if(passwordStrength(event.target.value)<35){
+		if(entropy<40){
 			event.target.setCustomValidity("Password too weak!")
 		}
 		else{
@@ -134,9 +169,12 @@ const SignUp = ()=>{
 					required
 					/>
 					<div className="passStrengthMetter">
-						{passwordStrength(password)>0?
-						<span style={{width: `${passwordStrength(password)}%`, background: `${passwordStrength(password)<35?'red':((passwordStrength(password)<75)?'#f1c40f':'green')}`}}></span>
+						{pwdStrIndicator>0?
+						<span style={{width: `${pwdStrIndicator}%`, background: `${qualityColors[passwordQuality]}`}}></span>
 						:<></>}
+					</div>
+					<div className="passQuality">
+						<span>Password Quality: {passwordQuality}</span> <span>Entropy: {passwordEntropy.toFixed(2)} bit</span>
 					</div>
 				</div>
 				<div className="input-group">
