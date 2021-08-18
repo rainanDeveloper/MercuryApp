@@ -117,14 +117,21 @@ const SignUp = ()=>{
 			const myself = await createUser(login, email, password, publicKey)
 
 			toast.success(`User successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
-
+			
+			setEmail('')
+			setLogin('')
+			setPassword('')
+			setPasswordConfirm('')
 			handleRedirectAfterSignUpTimer(event)
 		}
 		catch(error){
 			toast.error(`Error while trying to Sign Up: ${error.message}`, {autoClose: 5000})
 		}
+		finally{
+			setLoading(false)
 
-		setLoading(false)
+		}
+
 	}
 	
 	return <StyledSignUp>
