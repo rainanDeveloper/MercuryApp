@@ -39,6 +39,20 @@ const ChatController = {
 			})
 		}
 
+		const existentChat = await Chat.findOne({
+			include: [
+				{
+					model: User,
+					where: {
+						userId: {
+							[Op.in]: [userId, toUser.id]
+						}
+					},
+					required: true
+				}
+			]
+		})
+
 		const transaction = await sequelize.transaction()
 
 		try{

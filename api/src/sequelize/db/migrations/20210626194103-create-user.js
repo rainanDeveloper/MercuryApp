@@ -16,10 +16,6 @@ module.exports = {
 			password_hash: {
 				type: Sequelize.STRING
 			},
-			public_key: {
-				type: Sequelize.STRING,
-				allowNull: false
-			},
 			email: {
 				type: Sequelize.STRING,	
 				allowNull: false,
