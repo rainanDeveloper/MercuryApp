@@ -40,11 +40,14 @@ const ChatController = {
 		}
 
 		const existentChat = await Chat.findOne({
+			where:{
+				
+			},
 			include: [
 				{
 					model: User,
 					where: {
-						userId: {
+						id: {
 							[Op.in]: [userId, toUser.id]
 						}
 					},
