@@ -45,7 +45,8 @@ const User = sequelize.define<IUserInstance>(
 			type: DataTypes.STRING
 		},
 		public_key: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			allowNull: false
 		},
 		email: {
 			type: DataTypes.STRING,	

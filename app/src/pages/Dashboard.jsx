@@ -10,7 +10,7 @@ import { FaPlus } from 'react-icons/fa'
 import { Modal } from '../components/Modal/index.jsx'
 import { userSearch } from '../services/UserService'
 import { createChat } from '../services/ChatService'
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 function Dashboard() {
 
@@ -66,6 +66,8 @@ function Dashboard() {
 	async function handleSearchUser(event){
 		event.preventDefault()
 
+		setLoading(true)
+
 		try{
 			const user = await userSearch(loginSearch)
 
@@ -91,12 +93,15 @@ function Dashboard() {
 					setModalContact(false)
 				}
 				catch(error){
-					toast.error(`Error while trying to create a new chat: ${error}`, {autoClose: 5000})
+					toast.error(`${error?.response?.data.message||'Error during chat creation'}`, {autoClose: 5000})
 				}
 			}
 		}
 		catch(error){
-			toast.error(`Error during search for a user: ${error}`, {autoClose: 5000})	
+			toast.error(`${error?.response?.data.message||'Error during user search'}`, {autoClose: 5000})	
+		}
+		finally{
+			setLoading(false)
 		}
 
 	}
@@ -132,6 +137,7 @@ function Dashboard() {
 					<Route exact path='/' component={DashboardWelcome}/>
 				</Switch>
 			</StyledMainBody>
+			<ToastContainer />
 		</StyledDashboard>
 	)
 }
