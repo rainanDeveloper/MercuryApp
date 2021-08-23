@@ -26,6 +26,7 @@ const StyledDashboardWelcome = styled.section`
 		max-width: 400px;
 		width: 90%;
 	}
+	
 `
 
 

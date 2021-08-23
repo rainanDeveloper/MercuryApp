@@ -131,7 +131,7 @@ function Dashboard() {
 					</div>
 				</Modal>
 			</aside>
-			<StyledMainBody>
+			<StyledMainBody className="mainBody">
 				<Switch>
 					<Route path='/chat/:id' component={ChatMessageList}/>
 					<Route exact path='/' component={DashboardWelcome}/>
