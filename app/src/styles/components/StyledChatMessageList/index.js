@@ -27,6 +27,19 @@ const StyledChatMessageList = styled.div`
 			}
 		}
 	}
+
+	a.backBtn {
+		display: none;
+		background: none;
+		border: none;
+		padding: 2px;
+	}
+
+	@media (max-width: 520px){
+		a.backBtn {
+			display: flex;
+		}
+	}
 `
 
 export { StyledChatMessageList }
