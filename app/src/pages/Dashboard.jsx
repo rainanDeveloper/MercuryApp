@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Chatlist} from '../components/ChatList/index.jsx'
 import { StyledDashboard } from '../styles/pages/StyledDashboard'
-import { useHistory, Switch, Route } from 'react-router-dom'
+import { useHistory, Switch, Route, useParams } from 'react-router-dom'
 import { getAuthInfo } from '../services/AuthInfoService'
 import { DashboardWelcome } from '../components/DashboardWelcome'
 import { StyledMainBody } from '../styles/components/StyledMainBody'
@@ -10,7 +10,7 @@ import { FaPlus } from 'react-icons/fa'
 import { Modal } from '../components/Modal/index.jsx'
 import { userSearch } from '../services/UserService'
 import { createChat } from '../services/ChatService'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify'
 
 function Dashboard() {
 
@@ -18,6 +18,8 @@ function Dashboard() {
 	const [modalContact, setModalContact]	= useState(false)
 	const [loginSearch, setLoginSearch]		= useState('')
 	const [loading, setLoading]				= useState(false)
+
+	const { id: chatId } = useParams()
 
 	const authtoken = localStorage.getItem('authtoken')
 
@@ -122,7 +124,7 @@ function Dashboard() {
 
 	return (
 		<StyledDashboard>
-			<aside>
+			<aside className={chatId?"active":""}>
 				<Chatlist chatList={chats}/>
 				<button className="addChat" onClick={()=>setModalContact(true)}><FaPlus size={20}/></button>
 				<Modal title='Adicionar contato' active={modalContact} changeActive={setModalContact} buttons={buttons}>
@@ -131,7 +133,7 @@ function Dashboard() {
 					</div>
 				</Modal>
 			</aside>
-			<StyledMainBody>
+			<StyledMainBody className={chatId?"active mainBody":"mainBody"}>
 				<Switch>
 					<Route path='/chat/:id' component={ChatMessageList}/>
 					<Route exact path='/' component={DashboardWelcome}/>
