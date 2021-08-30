@@ -4,6 +4,7 @@ import { Dashboard } from './pages/Dashboard'
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { SignUp } from './pages/SignUp'
+import { ResetPassword } from './pages/ResetPassword'
 
 const Routes = ()=>{
 
@@ -23,6 +24,7 @@ const Routes = ()=>{
 					<Route exact path="/chat/:id" component={initialPage}/>
 					<Route exact path="/login" component={Login}/>
 					<Route exact path="/signup" component={SignUp}/>
+					<Route exact path="/resetPasswd" component={ResetPassword}/>
 				</Switch>
 			</React.Fragment>
 		</BrowserRouter>
