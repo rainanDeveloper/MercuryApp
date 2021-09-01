@@ -2,6 +2,7 @@ import { User } from "@models/user"
 import { Request, Response } from 'express'
 import { Op } from "sequelize"
 import { JWToken } from "utils/JWToken"
+import { IMail, transporter } from '../services/nodemailer.service'
 import { v4 as uuid} from 'uuid'
 
 const sendResetEmail = async (request: Request, response: Response) => {
@@ -65,15 +66,10 @@ const sendResetEmail = async (request: Request, response: Response) => {
 	</thead>
 	<tbody>
 	<tr>
-	<td style="padding: 10px;">
-	Foi identificado um cadastro de usuário em nosso app. Caso não tenha sido você quem o tenha feito, ignore este email.
-	Caso queira prossegui com a ativação da conta, clique no link abaixo:
-	</td>
+	<td style="padding: 10px;">Foi solicitado a troca de senha do seu usuário em nossa plataforma. Clique no link abaixo para resetar a sua senha:</td>
 	</tr>
 	<tr>
-	<td style="padding: 10px;" align="center">
-	<a href="${link}" style="text-decoration: none; border-radius: 5px; background: #0097e6; padding: 10px; color: white">Confirme sua inscrição</a>
-	</td>
+	<td style="padding: 10px;" align="center"><a style="text-decoration: none; border-radius: 5px; background: #0097e6; padding: 10px; color: white;" href="${link}">Resetar senha</a></td>
 	</tr>
 	</tbody>
 	</table>
@@ -84,4 +80,14 @@ const sendResetEmail = async (request: Request, response: Response) => {
 	</body>
 	</html>
 	`
+
+	const message: IMail = {
+		to: `<${userToRecover.email}>`,
+		from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
+		subject: 'User password recovery',
+		text: `Recover your password: ${link}`,
+		html
+	}
+	
+	await transporter.sendMail(message)
 }
