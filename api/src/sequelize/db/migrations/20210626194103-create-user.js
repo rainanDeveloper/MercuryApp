@@ -21,6 +21,10 @@ module.exports = {
 				allowNull: false,
 				unique: true
 			},
+			recover_uuid: {
+				type: Sequelize.STRING,
+				unique: true
+			},
 			status: {
 				type: Sequelize.TINYINT,
 				allowNull: false,
