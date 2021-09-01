@@ -81,13 +81,25 @@ const sendResetEmail = async (request: Request, response: Response) => {
 	</html>
 	`
 
-	const message: IMail = {
-		to: `<${userToRecover.email}>`,
-		from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
-		subject: 'User password recovery',
-		text: `Recover your password: ${link}`,
-		html
-	}
+	try{
+		const message: IMail = {
+			to: `<${userToRecover.email}>`,
+			from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
+			subject: 'User password recovery',
+			text: `Recover your password: ${link}`,
+			html
+		}
+		
+		await transporter.sendMail(message)
 	
-	await transporter.sendMail(message)
+		return response.json({
+			message: "Email sended"
+		})
+	}
+	catch(error){
+		return response.status(500).json({
+			message: "Error during email sending",
+			error
+		})
+	}
 }
