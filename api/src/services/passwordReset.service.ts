@@ -103,3 +103,7 @@ const sendResetEmail = async (request: Request, response: Response) => {
 		})
 	}
 }
+
+export {
+	sendResetEmail
+}
