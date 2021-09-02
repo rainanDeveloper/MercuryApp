@@ -18,6 +18,6 @@ router.post('/api/user', UserController.store)
 router.post('/api/login', SessionController.store)
 router.post('/api/messages', SessionController.validationMiddleware, MessageController.store)
 router.post('/api/chat', SessionController.validationMiddleware, ChatController.store)
-router.post('/api/password/recoveryEmail', sendResetEmail)
+router.post('/api/passwd/recoveryEmail', sendResetEmail)
 
 export { router }
