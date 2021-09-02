@@ -1,11 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
+import { sendPasswordResetEmail } from '../services/PasswordResetService'
 import { StyledLogin } from '../styles/pages/StyledLogin'
+import { useHistory } from 'react-router-dom'
 
 const ResetPassword = ()=>{
 
-	const [login, setLogin]	= useState('')
-	const [loading, setLoading]		= useState(false)
+	const [login, setLogin] = useState('')
+	const [loading, setLoading] = useState(false)
+
+	const history = useHistory()
 
 	function handleLoginChange(event){
 		event.preventDefault()
@@ -13,10 +18,38 @@ const ResetPassword = ()=>{
 		setLogin(event.target.value)
 	}
 
-	function handleSubmitForm(event){
+	function handleRedirectAfterRecoverEmail(event){
+		event.preventDefault()
+
+		const timer = setTimeout(()=>{
+			history.push('/login')
+		}, 6000)
+
+		return ()=>clearTimeout(timer)
+	}
+
+	async function handleSubmitForm(event){
 		event.preventDefault()
 
 		setLoading(true)
+
+		try{
+			const { message } = await sendPasswordResetEmail(login)
+
+			toast.success(message, { autoClose: 5000 })
+
+			setLogin('')
+
+			handleRedirectAfterRecoverEmail(event)
+		}
+		catch(error){
+			const {message} = error
+
+			toast.error(message, {autoClose: 5000})
+		}
+		finally{
+			setLoading(false)
+		}
 	}
 
 	return <StyledLogin>
@@ -39,6 +72,7 @@ const ResetPassword = ()=>{
 				<button disabled={loading}>{loading?'Sending recovery email...':'Recover Password'}</button>
 			</form>
 		</section>
+		<ToastContainer />
 	</StyledLogin>
 }
 

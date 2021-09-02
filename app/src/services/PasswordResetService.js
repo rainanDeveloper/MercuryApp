@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const sendPasswordResetEmail = (login)=>{
+const sendPasswordResetEmail = async (login)=>{
 	try{
 		const response = await axios.post('api/passwor/recoveryEmail', {
 			login
