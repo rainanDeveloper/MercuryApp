@@ -16,7 +16,8 @@ const sendPasswordResetEmail = async (login)=>{
 const sendNewPassword = async (password, token)=>{
 	try{
 		const response = axios.post('/api/passwd/resetPassword', {
-			password
+			password,
+			token
 		})
 
 		return response.data

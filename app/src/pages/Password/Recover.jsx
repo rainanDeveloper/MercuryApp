@@ -49,7 +49,7 @@ const PasswordRecover = ()=>{
 		}
 		else{
 			try{
-				const result = sendNewPassword(newPassword)
+				const result = sendNewPassword(newPassword, token)
 
 				toast.success(result, { autoClose: 5000 })
 			}

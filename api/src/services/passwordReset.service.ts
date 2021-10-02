@@ -125,7 +125,10 @@ const setNewPassword = async (request: Request, response: Response) => {
 
 	const changeableUser = await User.findOne({
 		where: {
-			login,
+			[Op.or]: [
+				{login},
+				{email: login}
+			],
 			recover_uuid
 		}
 	})
@@ -137,6 +140,8 @@ const setNewPassword = async (request: Request, response: Response) => {
 
 		try {
 			changeableUser.save()
+
+			return response.json(changeableUser);
 		}
 		catch(error){
 			return response.status(500).json({
