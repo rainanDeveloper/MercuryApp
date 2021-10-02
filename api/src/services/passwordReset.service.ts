@@ -104,6 +104,55 @@ const sendResetEmail = async (request: Request, response: Response) => {
 	}
 }
 
+const setNewPassword = async (request: Request, response: Response) => {
+	const { token, password } = request.body
+
+	const tokenHandler = new JWToken({})
+
+	const {login, recover_uuid} = tokenHandler.validateToken(token)
+
+	if(!login){
+		return response.status(401).json({
+			message: 'Invalid token'
+		})
+	}
+
+	if(!recover_uuid){
+		return response.status(401).json({
+				message: 'Invalid token'
+			})
+	}
+
+	const changeableUser = await User.findOne({
+		where: {
+			login,
+			recover_uuid
+		}
+	})
+
+	if(changeableUser){
+		
+		changeableUser.password = password
+		changeableUser.recover_uuid = ''
+
+		try {
+			changeableUser.save()
+		}
+		catch(error){
+			return response.status(500).json({
+				message: `Server error during user saving: ${error.message}`
+			})
+		}
+	}
+	else{
+		return response.status(404).json({
+			message: 'User not found or invalid recover unique id'
+		})
+	}
+
+}
+
 export {
-	sendResetEmail
+	sendResetEmail,
+	setNewPassword
 }

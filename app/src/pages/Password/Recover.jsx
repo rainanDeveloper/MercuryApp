@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { sendNewPassword } from '../../services/PasswordResetService'
 import { StyledLogin } from '../../styles/pages/StyledLogin'
 
 
@@ -46,7 +48,16 @@ const PasswordRecover = ()=>{
 			formChangePassword.current.reportValidity()
 		}
 		else{
-			
+			try{
+				const result = sendNewPassword(newPassword)
+
+				toast.success(result, { autoClose: 5000 })
+			}
+			catch(error){
+				const {message} = error
+
+				toast.error(message, {autoClose: 5000})
+			}
 		}
 	}
 
