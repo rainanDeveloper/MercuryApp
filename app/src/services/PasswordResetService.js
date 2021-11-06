@@ -15,7 +15,7 @@ const sendPasswordResetEmail = async (login)=>{
 
 const sendNewPassword = async (password, token)=>{
 	try{
-		const response = axios.post('/api/passwd/resetPassword', {
+		const response = await axios.post('/api/passwd/resetPassword', {
 			password,
 			token
 		})

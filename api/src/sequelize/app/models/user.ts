@@ -55,8 +55,7 @@ const User = sequelize.define<IUserInstance>(
 			unique: true
 		},
 		recover_uuid: {
-			type: DataTypes.STRING,
-			unique: true
+			type: DataTypes.STRING
 		},
 		status: {
 			type: DataTypes.TINYINT,

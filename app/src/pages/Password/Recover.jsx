@@ -41,7 +41,7 @@ const PasswordRecover = ()=>{
 		setRepeatNewPassword(passwordInput.value)
 	}
 
-	function handleFormSubmission(event){
+	async function handleFormSubmission(event){
 		event.preventDefault()
 
 		if(!formChangePassword.current.checkValidity()){
@@ -49,7 +49,7 @@ const PasswordRecover = ()=>{
 		}
 		else{
 			try{
-				const result = sendNewPassword(newPassword, token)
+				const result = await sendNewPassword(newPassword, token)
 
 				toast.success(result, { autoClose: 5000 })
 			}
