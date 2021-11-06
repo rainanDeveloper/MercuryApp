@@ -68,7 +68,7 @@ const Login = ()=>{
 					required/>
 				</div>
 				<div className="input-group">
-					<label htmlFor="password">Password</label>
+					<label htmlFor="password" className="passLabel">Password <span className="passReset">Forgot password? <Link to="/resetPasswd">Reset</Link></span></label>
 					<input type="password" required value={password} onChange={handlePasswordChange}/>
 				</div>
 				<div className="accountOptionSwitcher">
