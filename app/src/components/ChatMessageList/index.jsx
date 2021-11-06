@@ -9,8 +9,6 @@ import { showChatInfo } from '../../services/ChatService'
 import { generateSharedSecretFromKeys } from '../../utils/createECDHPair'
 import { decryptContent } from '../../utils/AESEncryption'
 import { proxy } from '../../../package.json'
-import { FiArrowLeft } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 const isDev = process.env.NODE_ENV === 'development'
 
 const ChatMessageList = ()=>{
@@ -130,6 +128,9 @@ const ChatMessageList = ()=>{
 
 			wsClient.send(data)
 		}
+
+		
+
 		setMessage('')
 	}
 
@@ -139,7 +140,6 @@ const ChatMessageList = ()=>{
 
 	return <StyledChatMessageList>
 		<div className="currentChatInfo">
-			<Link to="/" className="backBtn"><FiArrowLeft size={30}/></Link>
 			<div className="currentChatAvatar">
 				<img src={chatAvatar||'/assets/images/defaultUser.jpg'} alt="Chat Avatar" />
 			</div>

@@ -7,7 +7,6 @@ module.exports = {
 			'public_key',
 			{
 				type: Sequelize.STRING,
-				allowNull: false,
 				after: 'password_hash'
 			}
 		)
