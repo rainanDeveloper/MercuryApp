@@ -70,10 +70,10 @@ a {
 	gap: 5px;
 	justify-content: center;
 	align-items: center;
+	font-size: 0.8em;
 	a{
 		background: none;
 		border: none;
-		font-size: initial;
 		padding: initial;
 		color: ${colors.secondary}
 	}

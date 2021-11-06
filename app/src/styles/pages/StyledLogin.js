@@ -42,6 +42,24 @@ const StyledLogin = styled.main`
 		gap: 10px;
 		font-size: 1em;
 	}
+
+	.passLabel {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 5px;
+	}
+
+	span.passReset {
+		font-size: 0.8em;
+		color: ${props=>props.theme.spanTextColor};
+		a {
+			background: none;
+			border: none;
+			padding: initial;
+			color: ${colors.secondary};
+		}
+	}
 `
 
 export { StyledLogin }

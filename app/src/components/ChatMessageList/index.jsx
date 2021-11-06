@@ -130,9 +130,6 @@ const ChatMessageList = ()=>{
 
 			wsClient.send(data)
 		}
-
-		
-
 		setMessage('')
 	}
 
