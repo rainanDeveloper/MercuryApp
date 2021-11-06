@@ -3,7 +3,6 @@ import { MessageController } from '@controllers/MessageController'
 import { SessionController } from '@controllers/SessionController'
 import { UserController } from '@controllers/UserController'
 import { Router } from 'express'
-import { sendResetEmail, setNewPassword } from 'services/passwordReset.service'
 import { activateUser } from './services/activateUser.service'
 
 const router = Router()
@@ -18,7 +17,5 @@ router.post('/api/user', UserController.store)
 router.post('/api/login', SessionController.store)
 router.post('/api/messages', SessionController.validationMiddleware, MessageController.store)
 router.post('/api/chat', SessionController.validationMiddleware, ChatController.store)
-router.post('/api/passwd/recoveryEmail', sendResetEmail)
-router.post('/api/passwd/resetPassword', setNewPassword)
 
 export { router }

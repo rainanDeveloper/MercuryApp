@@ -9,12 +9,10 @@ const StyledChatList = styled.ul`
 	border: 0;
 	border-top: solid 1px ${props=>props.theme.inputBorder};
 	position: relative;
-	max-width: 100%;
 
 	li {
 		display: flex;
 		flex-direction: column;
-		max-width: 100%;
 	}
 
 	li a {
@@ -35,7 +33,6 @@ const StyledChatList = styled.ul`
 	}
 
 	.searchHeader {
-		box-sizing: border-box;
 		display: grid;
 		padding: 10px;
 		border-bottom: solid 1px ${props=>props.theme.inputBorder};

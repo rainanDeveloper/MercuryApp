@@ -1,54 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyledSignUp } from '../styles/pages/StyledSignUp'
 import { passwordStrength } from '../utils/password'
 import { createUser } from '../services/SignUpService'
 import { ToastContainer, toast } from 'react-toastify'
-import { Link, useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { generateKeyFromData } from '../utils/createECDHPair'
 
 const SignUp = ()=>{
 
-	const [login, setLogin]									= useState('')
-	const [email, setEmail]									= useState('')
-	const [password, setPassword]							= useState('')
-	const [passwordConfirm, setPasswordConfirm]				= useState('')
-	const [loading, setLoading]								= useState(false)
-	const [pwdStrIndicator, setPwdStrIndicator]				= useState(0)
-	const [passwordEntropy, setPasswordEntropy]				= useState(0)
-	const [passwordQuality, setPasswordQuality] 			= useState('Poor')
+	const [login, setLogin]						= useState('')
+	const [email, setEmail]						= useState('')
+	const [password, setPassword]				= useState('')
+	const [passwordConfirm, setPasswordConfirm]	= useState('')
+	const [loading, setLoading]					= useState(false)
 
-	const qualityColors = {
-		Poor: "#e22006",
-		Weak: "#b85904",
-		Good: "#64a416",
-		Excellent: "#50cf01"
-	}
-
-	const passIndcLength = 200
-
-	const history = useHistory()
-
-	useEffect(()=>{
-		const entropy = passwordStrength(password)
-
-		const strengtIndc = entropy*100/passIndcLength
-		
-		setPasswordEntropy(entropy)
-		setPwdStrIndicator(strengtIndc)
-		setPasswordQuality(calculateQuality(entropy))
-	}, [password])
-
-	function calculateQuality(entropy){
-		if (entropy < 40) {
-        	return "Poor"
-    	} else if (entropy < 65) {
-        	return "Weak"
-    	} else if (entropy < 100) {
-        	return "Good"
-    	}
-    	return "Excellent"
-	}
 
 	function handleLoginChange(event){
 		event.preventDefault()
@@ -65,11 +30,9 @@ const SignUp = ()=>{
 	function handlePasswordChange(event){
 		event.preventDefault()
 
-		const entropy = passwordStrength(event.target.value)
-
 		setPassword(event.target.value.replace(/\s?\t?\n?/g, ''))
 
-		if(entropy<40){
+		if(passwordStrength(event.target.value)<35){
 			event.target.setCustomValidity("Password too weak!")
 		}
 		else{
@@ -94,16 +57,6 @@ const SignUp = ()=>{
 		}
 	}
 
-	function handleRedirectAfterSignUpTimer(event){
-		event.preventDefault()
-
-		const timer = setTimeout(()=>{
-			history.push('/login')
-		}, 6000)
-
-		return ()=>clearTimeout(timer)
-	}
-
 	async function handleSignUpFormSubmit(event){
 		event.preventDefault()
 
@@ -116,22 +69,13 @@ const SignUp = ()=>{
 
 			const myself = await createUser(login, email, password, publicKey)
 
-			toast.success(`User successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
-			
-			setEmail('')
-			setLogin('')
-			setPassword('')
-			setPasswordConfirm('')
-			handleRedirectAfterSignUpTimer(event)
+			toast.success(`user successfully created! Verify email ${myself.email} to activate account!`, {autoClose: 5000})
 		}
 		catch(error){
 			toast.error(`Error while trying to Sign Up: ${error.message}`, {autoClose: 5000})
 		}
-		finally{
-			setLoading(false)
 
-		}
-
+		setLoading(false)
 	}
 	
 	return <StyledSignUp>
@@ -176,12 +120,9 @@ const SignUp = ()=>{
 					required
 					/>
 					<div className="passStrengthMetter">
-						{pwdStrIndicator>0?
-						<span style={{width: `${pwdStrIndicator}%`, background: `${qualityColors[passwordQuality]}`}}></span>
+						{passwordStrength(password)>0?
+						<span style={{width: `${passwordStrength(password)}%`, background: `${passwordStrength(password)<35?'red':((passwordStrength(password)<75)?'#f1c40f':'green')}`}}></span>
 						:<></>}
-					</div>
-					<div className="passQuality">
-						<span>Password Quality: {passwordQuality}</span> <span>Entropy: {passwordEntropy.toFixed(2)} bit</span>
 					</div>
 				</div>
 				<div className="input-group">
@@ -195,9 +136,6 @@ const SignUp = ()=>{
 					onBlur={handlePasswordConfirmBlur}
 					required
 					/>
-				</div>
-				<div className="accountOptionSwitcher">
-					Already have an account? <Link to="/login">Login</Link>
 				</div>
 				<button disabled={loading}>{loading?'Signing Up...':'Sign Up'}</button>
 			</form>

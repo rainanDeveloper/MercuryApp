@@ -1,39 +1,36 @@
 
-const match = (str, strItems)=>{
+
+const matchCount = (str, strItems)=>{
+	var count = 0
+
 	for (let i = 0; i < str.length; i++) {
 		if (strItems.indexOf(str.charAt(i)) > -1){
-			return true
+			count++
 		}
 	}
 
-	return false
+	return count
 }
 
 const passwordStrength = (password)=>{
-
-	if(typeof password !== "string"){
-		throw new Error("Password given is invalid!")
-	}
-
-	const pools = []
-
-	pools.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-	pools.push("abcdefghijklmnopqrstuvwxyz")
-	pools.push("0123456789")
-	pools.push("!@#$%^&*+-/\\?_~{}[]()<>:;`\"\'")	
+	const strUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	const strLowerCase = "abcdefghijklmnopqrstuvwxyz"
+	const strNumber = "0123456789"
+	const strCharacters = "!@#$%^&*+-/\\?_~{}[]()<>:;`\"\'"
 
 	var score = 0
-	var poolSize = 0
 
-	pools.forEach(pool => {
-		if(match(password, pool)){
-			poolSize+=pool.length
-		}
-	});	
+	var uppercaseCount = matchCount(password, strUpperCase)
+	var lowercaseCount = matchCount(password, strLowerCase)
+	var numberCount = matchCount(password, strNumber)
+	var charCount = matchCount(password, strCharacters)
 
-	score = Math.log2(Math.pow(poolSize, password.length))
 
-	
+	score += Math.log2(strUpperCase.length) * uppercaseCount
+	score += Math.log2(strNumber.length) * numberCount
+	score += Math.log2(strCharacters.length) * charCount
+	score += Math.log2(strLowerCase.length) * lowercaseCount
+
 	return score
 
 }

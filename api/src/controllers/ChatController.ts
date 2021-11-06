@@ -4,8 +4,6 @@ import { Chat } from '@models/chat'
 import { User } from '@models/user'
 import { sequelize } from '@models/index'
 import { Op } from 'sequelize'
-import { Sequelize } from 'sequelize'
-import fs from 'fs'
 
 User.belongsToMany(Chat, { through: UserChat, foreignKey: 'userId' })
 Chat.belongsToMany(User, { through: UserChat, foreignKey: 'chatId' })
@@ -44,24 +42,6 @@ const ChatController = {
 		const transaction = await sequelize.transaction()
 
 		try{
-
-			const existentChat = await UserChat.findOne({
-				where: {
-					userId: {
-						[Op.in]: [
-							userId,
-							toUser.id
-						]
-					}
-				},
-				group: ['chatId'],
-				having: Sequelize.where(Sequelize.fn('COUNT', 'userId'), '2')
-			})
-	
-			if(existentChat){
-				throw new Error('Error during chat creation: chat already exists!')
-			}
-
 			const newChat = await Chat.create({})
 
 			await UserChat.create({
@@ -102,7 +82,7 @@ const ChatController = {
 			transaction.rollback()
 
 			return response.status(500).json({
-				message: error.message||`Error while trying to create new conversation`,
+				message: `Error while trying to create new conversation`,
 				error
 			})
 		}
