@@ -49,59 +49,58 @@ const UserController = {
 				chatId: newChat.id
 			}, { transaction })
 
-			await transaction.commit()
-
+			
 			// If user is successfully created, sends an email to the user
-
+			
 			// Create jwt token for confirmation
-
+			
 			const token = new JWToken({}).createToken({login, email})
-
+			
 			const link = `http://${request.host}/api/user/confirmation/${token}`
-
+			
 			// html content
-
+			
 			const html = `<!DOCTYPE html>
 			<html>
-				<head>
-					<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-					<link rel="preconnect" href="https://fonts.googleapis.com"/>
-					<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-					<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet"/>
-				</head>
-				<body style="padding: 0; margin: 0; width: 100%;">
-					
-					<table width="100%" height="100%" style="background-color:#cdd4df; padding: 0; margin: 0" cellpading="0" cellspacing="0">
-						<tbody cellpading="0" cellspacing="0">
-							<tr cellpading="0" cellspacing="0">
-								<td align="center" cellpading="0" cellspacing="0">
-								<table style="margin: 0 auto; background:#f5f6fa; font-family: 'Roboto', Arial, Helvetica, sans-serif;" width="512">
-									<thead>
-										<tr>
-											<th><h1 style="font-weight: 300; padding: 10px; margin: 0; text-align: left;">Mercury App</h1></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="padding: 10px;">
-												Foi identificado um cadastro de usuário em nosso app. Caso não tenha sido você quem o tenha feito, ignore este email.
-												Caso queira prossegui com a ativação da conta, clique no link abaixo:
-											</td>
-										</tr>
-										<tr>
-											<td style="padding: 10px;" align="center">
-												<a href="${link}" style="text-decoration: none; border-radius: 5px; background: #0097e6; padding: 10px; color: white">Confirme sua inscrição</a>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</body>
+			<head>
+			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+			<link rel="preconnect" href="https://fonts.googleapis.com"/>
+			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+			<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet"/>
+			</head>
+			<body style="padding: 0; margin: 0; width: 100%;">
+			
+			<table width="100%" height="100%" style="background-color:#cdd4df; padding: 0; margin: 0" cellpading="0" cellspacing="0">
+			<tbody cellpading="0" cellspacing="0">
+			<tr cellpading="0" cellspacing="0">
+			<td align="center" cellpading="0" cellspacing="0">
+			<table style="margin: 0 auto; background:#f5f6fa; font-family: 'Roboto', Arial, Helvetica, sans-serif;" width="512">
+			<thead>
+			<tr>
+			<th><h1 style="font-weight: 300; padding: 10px; margin: 0; text-align: left;">Mercury App</h1></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+			<td style="padding: 10px;">
+			Foi identificado um cadastro de usuário em nosso app. Caso não tenha sido você quem o tenha feito, ignore este email.
+			Caso queira prossegui com a ativação da conta, clique no link abaixo:
+			</td>
+			</tr>
+			<tr>
+			<td style="padding: 10px;" align="center">
+			<a href="${link}" style="text-decoration: none; border-radius: 5px; background: #0097e6; padding: 10px; color: white">Confirme sua inscrição</a>
+			</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			</tbody>
+			</table>
+			</body>
 			</html>`
-
+			
 			const message: IMail = {
 				to: `<${email}>`,
 				from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
@@ -109,44 +108,16 @@ const UserController = {
 				text: 'Activate your account: ',
 				html
 			}
-
+			
 			await transporter.sendMail(message)
 
-			// Email message sending implementation was postponed
-
+			// After successfully email sending, transaction is finally executed
+			await transaction.commit()
+			
 			return response.json(userCreated)
 		}
 		catch(error){
-			const newUser = await User.findOne({
-				where: {
-					login
-				}
-			})
-			if(newUser){
-
-				const userChatRelation = await UserChat.findOne({
-					where: {
-						userId: newUser.id
-					}
-				})
-
-				if(userChatRelation){
-					userChatRelation.destroy().then(()=>{
-						Chat.destroy({
-							where: {
-								id: userChatRelation.chatId
-							}
-						}).then(async ()=>{
-							await newUser.destroy()
-						})
-					})
-				}
-			}
-			else{
-				transaction.rollback()
-			}
-
-
+			transaction.rollback()
 
 			return response.status(500).json({
 				message: `Error during user creation: ${error}`,

@@ -3,6 +3,7 @@ import { authenticate } from '../services/LoginService'
 import { StyledLogin } from '../styles/pages/StyledLogin'
 import { generateKeyFromData } from '../utils/createECDHPair'
 import { ToastContainer, toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Login = ()=>{
@@ -67,8 +68,11 @@ const Login = ()=>{
 					required/>
 				</div>
 				<div className="input-group">
-					<label htmlFor="password">Password</label>
+					<label htmlFor="password" className="passLabel">Password <span className="passReset">Forgot password? <Link to="/resetPasswd">Reset</Link></span></label>
 					<input type="password" required value={password} onChange={handlePasswordChange}/>
+				</div>
+				<div className="accountOptionSwitcher">
+					Don't have an account yet? <Link to="/signup">Sign Up</Link>
 				</div>
 				<button disabled={loading}>{loading?'Signing In...':'Sign In'}</button>
 			</form>
