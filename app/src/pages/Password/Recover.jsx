@@ -18,12 +18,12 @@ const PasswordRecover = ()=>{
 	function handleNewPasswordChange(event){
 		const { target: passwordInput } = event
 
-		if(passwordInput.value!==repeatNewPassword){
-			passwordInput.setCustomValidity('Passwords does not match')
-		}
-		else{
-			passwordInput.setCustomValidity('')
-		}
+		// if(passwordInput.value!==repeatNewPassword){
+		// 	passwordInput.setCustomValidity('Passwords does not match')
+		// }
+		// else{
+		// 	passwordInput.setCustomValidity('')
+		// }
 
 		setNewPassword(passwordInput.value)
 	}
@@ -49,6 +49,8 @@ const PasswordRecover = ()=>{
 		}
 		else{
 			try{
+				
+
 				const result = await sendNewPassword(newPassword, token)
 
 				toast.success(result, { autoClose: 5000 })
