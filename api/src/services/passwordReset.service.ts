@@ -3,7 +3,6 @@ import { Request, Response } from 'express'
 import { Op } from "sequelize"
 import { JWToken } from "utils/JWToken"
 import { IMail, transporter } from '../services/nodemailer.service'
-import { v4 as uuid} from 'uuid'
 
 const sendResetEmail = async (request: Request, response: Response) => {
 	const { login } = request.body
@@ -33,13 +32,13 @@ const sendResetEmail = async (request: Request, response: Response) => {
 		})
 	}
 
-	const recover_uuid = uuid()
+	// const recover_uuid = uuid()
 	
-	userToRecover.recover_uuid = recover_uuid
+	// userToRecover.recover_uuid = recover_uuid
 
 	userToRecover.save()
 
-	const token = new JWToken({}).createToken({login, recover_uuid})
+	const token = new JWToken({}).createToken({login})
 	
 	const link = `http://${request.host}/password/recover/${token}`
 
@@ -109,7 +108,7 @@ const setNewPassword = async (request: Request, response: Response) => {
 
 	const tokenHandler = new JWToken({})
 
-	const {login, recover_uuid} = tokenHandler.validateToken(token)
+	const {login} = tokenHandler.validateToken(token)
 
 	if(!login){
 		return response.status(401).json({
@@ -117,26 +116,25 @@ const setNewPassword = async (request: Request, response: Response) => {
 		})
 	}
 
-	if(!recover_uuid){
-		return response.status(401).json({
-				message: 'Invalid token'
-			})
-	}
+	// if(!recover_uuid){
+	// 	return response.status(401).json({
+	// 		message: 'Invalid token'
+	// 	})
+	// }
 
 	const changeableUser = await User.findOne({
 		where: {
 			[Op.or]: [
 				{login},
 				{email: login}
-			],
-			recover_uuid
+			]
 		}
 	})
 
 	if(changeableUser){
 		
 		changeableUser.password = password
-		changeableUser.recover_uuid = ''
+		// changeableUser.recover_uuid = ''
 
 		try {
 			changeableUser.save()
