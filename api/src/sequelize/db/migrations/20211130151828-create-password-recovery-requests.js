@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('PasswordRecoveryRequests', {
+    await queryInterface.createTable('password_recovery_requests', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('PasswordRecoveryRequests');
+    await queryInterface.dropTable('password_recovery_requests');
   }
 };
