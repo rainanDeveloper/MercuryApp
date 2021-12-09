@@ -28,7 +28,8 @@ const PasswordRecoveryRequest = sequelize.define<IPasswordRecoveryRequestsInstan
 		},
 		invalid: {
 			type: DataTypes.BOOLEAN,
-			allowNull: false
+			allowNull: false,
+			defaultValue: true
 		},
 		otgCode: {
 			type: DataTypes.INTEGER
@@ -36,5 +37,13 @@ const PasswordRecoveryRequest = sequelize.define<IPasswordRecoveryRequestsInstan
 		email: {
 			type: DataTypes.STRING
 		}
+	},
+	{
+		tableName: 'password_recovery_requests'
 	}
 )
+
+export {
+	PasswordRecoveryRequest,
+	IPasswordRecoveryRequestsInstance
+}
