@@ -5,11 +5,11 @@ import { Op } from "sequelize"
 import { IMail, transporter } from '../services/nodemailer.service'
 
 const sendResetEmail = async (request: Request, response: Response) => {
-	const { login } = request.body
+	const { email } = request.body
 
-	if(!login){
+	if(!email){
 		return response.status(401).json({
-			message: 'Invalid email/login!'
+			message: 'Invalid email!'
 		})
 	}
 
@@ -17,10 +17,7 @@ const sendResetEmail = async (request: Request, response: Response) => {
 		where: {
 			[Op.or]: [
 				{
-					login
-				},
-				{
-					email: login
+					email
 				}
 			]
 		}
@@ -36,7 +33,7 @@ const sendResetEmail = async (request: Request, response: Response) => {
 
 	const createdRequest = await PasswordRecoveryRequest.create({
 		invalid: false,
-		email: userToRecover.email,
+		email,
 		otgCode: otg_code
 	})
 
@@ -80,7 +77,7 @@ const sendResetEmail = async (request: Request, response: Response) => {
 
 	try{
 		const message: IMail = {
-			to: `<${userToRecover.email}>`,
+			to: `<${email}>`,
 			from: `MercuryApp <${process.env.APPLICATION_MAIL}>`,
 			subject: 'User password recovery',
 			text: `Código para alteração de senha: ${otg_code}`,
@@ -128,6 +125,8 @@ const setNewPassword = async (request: Request, response: Response) => {
 
 		try {
 			changeableUser.save()
+
+			resetRequest.destroy();
 
 			return response.json(changeableUser);
 		}
