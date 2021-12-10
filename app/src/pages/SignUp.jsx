@@ -7,6 +7,26 @@ import { Link, useHistory } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { generateKeyFromData } from '../utils/createECDHPair'
 
+export const qualityColors = {
+	Poor: "#e22006",
+	Weak: "#b85904",
+	Good: "#64a416",
+	Excellent: "#50cf01"
+}
+
+export function calculateQuality(entropy){
+	if (entropy < 40) {
+		return "Poor"
+	} else if (entropy < 65) {
+		return "Weak"
+	} else if (entropy < 100) {
+		return "Good"
+	}
+	return "Excellent"
+}
+
+export const passIndcLength = 200
+
 const SignUp = ()=>{
 
 	const [login, setLogin]									= useState('')
@@ -18,14 +38,8 @@ const SignUp = ()=>{
 	const [passwordEntropy, setPasswordEntropy]				= useState(0)
 	const [passwordQuality, setPasswordQuality] 			= useState('Poor')
 
-	const qualityColors = {
-		Poor: "#e22006",
-		Weak: "#b85904",
-		Good: "#64a416",
-		Excellent: "#50cf01"
-	}
+	
 
-	const passIndcLength = 200
 
 	const history = useHistory()
 
@@ -39,16 +53,7 @@ const SignUp = ()=>{
 		setPasswordQuality(calculateQuality(entropy))
 	}, [password])
 
-	function calculateQuality(entropy){
-		if (entropy < 40) {
-        	return "Poor"
-    	} else if (entropy < 65) {
-        	return "Weak"
-    	} else if (entropy < 100) {
-        	return "Good"
-    	}
-    	return "Excellent"
-	}
+	
 
 	function handleLoginChange(event){
 		event.preventDefault()

@@ -3,7 +3,7 @@ import { MessageController } from '@controllers/MessageController'
 import { SessionController } from '@controllers/SessionController'
 import { UserController } from '@controllers/UserController'
 import { Router } from 'express'
-import { sendResetEmail, setNewPassword } from 'services/passwordReset.service'
+import { sendResetEmail, setNewPassword } from './services/passwordReset.service'
 import { activateUser } from './services/activateUser.service'
 
 const router = Router()

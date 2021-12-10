@@ -12,7 +12,6 @@ interface IUserAttributes {
 	password_hash?: string
 	public_key?: string
 	email: string
-	recover_uuid?: string
 	status?: number
 }
 
@@ -53,9 +52,6 @@ const User = sequelize.define<IUserInstance>(
 			type: DataTypes.STRING,	
 			allowNull: false,
 			unique: true
-		},
-		recover_uuid: {
-			type: DataTypes.STRING
 		},
 		status: {
 			type: DataTypes.TINYINT,

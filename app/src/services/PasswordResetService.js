@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const sendPasswordResetEmail = async (login)=>{
+const sendPasswordResetEmail = async (email)=>{
 	try{
 		const response = await axios.post('/api/passwd/recoveryEmail', {
-			login
+			email
 		})
 
 		return response.data
@@ -13,12 +13,12 @@ const sendPasswordResetEmail = async (login)=>{
 	}
 }
 
-const sendNewPassword = async (password, publicKey, token)=>{
+const sendNewPassword = async (password, publicKey, otg_code)=>{
 	try{
 		const response = await axios.post('/api/passwd/resetPassword', {
 			password,
 			publicKey,
-			token
+			otg_code
 		})
 
 		return response.data
