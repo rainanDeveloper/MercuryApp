@@ -28,6 +28,24 @@ const GlobalStyles = createGlobalStyle`
 	}
 }
 
+.passStrengthMetter {
+	display: flex;
+	width: 100%;
+	height: 2px;
+}
+
+.passStrengthMetter span {
+	background-color: red;
+}
+.passQuality {
+	display: flex;
+	justify-content: space-between;
+	span {
+		color: ${props => props.theme.spanTextColor};
+		font-size: 0.8em;
+	}
+}
+
 html, body {
 	padding: 0;
 	margin: 0;

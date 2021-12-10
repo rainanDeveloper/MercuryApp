@@ -99,7 +99,7 @@ const sendResetEmail = async (request: Request, response: Response) => {
 }
 
 const setNewPassword = async (request: Request, response: Response) => {
-	const { otg_code, password } = request.body
+	const { otg_code, password, publicKey } = request.body
 
 	const resetRequest = await PasswordRecoveryRequest.findOne({
 		where: {
@@ -122,6 +122,7 @@ const setNewPassword = async (request: Request, response: Response) => {
 	if(changeableUser){
 		
 		changeableUser.password = password
+		changeableUser.public_key = publicKey
 
 		try {
 			changeableUser.save()
