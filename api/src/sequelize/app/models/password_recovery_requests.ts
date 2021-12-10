@@ -35,7 +35,9 @@ const PasswordRecoveryRequest = sequelize.define<IPasswordRecoveryRequestsInstan
 			type: DataTypes.INTEGER
 		},
 		email: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: true,
 		}
 	},
 	{
