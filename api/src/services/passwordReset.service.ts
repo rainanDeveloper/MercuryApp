@@ -31,10 +31,24 @@ const sendResetEmail = async (request: Request, response: Response) => {
 
 	const otg_code = `${Math.random()}`.slice(-6)
 
-	const createdRequest = await PasswordRecoveryRequest.create({
-		invalid: false,
-		email,
-		otgCode: otg_code
+	await PasswordRecoveryRequest.findOne({
+		where: {
+			email,
+			invalid: false
+		}
+	}).then(async (request)=>{
+		if(request) {
+			request.otgCode = otg_code
+
+			await request.save()
+		}
+		else{
+			PasswordRecoveryRequest.create({
+				invalid: false,
+				email,
+				otgCode: otg_code
+			})
+		}
 	})
 
 	const html = `

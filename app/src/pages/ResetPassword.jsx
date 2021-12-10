@@ -174,6 +174,9 @@ const ResetPasswordForm = ({afterSending, afterError}) => {
 		catch(error) {
 			afterError(error)
 		}
+		finally{
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -220,7 +223,7 @@ const ResetPassword = ()=>{
 		toast.success(message, { autoClose: toastTimeout })
 		
 		setTimeout(() => {
-			history.push('login')
+			history.push('/login')
 		}, toastTimeout + 1000);
 
 	}
