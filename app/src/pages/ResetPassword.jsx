@@ -6,6 +6,7 @@ import { StyledLogin } from '../styles/pages/StyledLogin'
 import { useHistory } from 'react-router-dom'
 import { passwordStrength } from '../utils/password'
 import { calculateQuality, passIndcLength, qualityColors } from './SignUp';
+import { generateKeyFromData } from '../utils/createECDHPair'
 
 const EmailResetSendingForm = ({afterSending, afterError})=>{
 	const [email, setEmail] = useState('')
@@ -23,9 +24,9 @@ const EmailResetSendingForm = ({afterSending, afterError})=>{
 		setLoading(true)
 
 		try{
-			const { message } = await sendPasswordResetEmail(email)
+			const { message, userInfo } = await sendPasswordResetEmail(email)
 
-			afterSending(message)
+			afterSending(message, userInfo)
 		}
 		catch(error){
 			afterError(error)
@@ -53,7 +54,7 @@ const EmailResetSendingForm = ({afterSending, afterError})=>{
 	)
 }
 
-const ResetPasswordForm = ({afterSending, afterError}) => {
+const ResetPasswordForm = ({afterSending, afterError, payload}) => {
 	const [ otgCode, setOtgCode ] = useState('')
 	const [ newPassword, setNewPassword ] = useState('')
 	const [ newPasswordConfirm, setNewPasswordConfirm ] = useState('')
@@ -61,6 +62,7 @@ const ResetPasswordForm = ({afterSending, afterError}) => {
 	const [ pwdStrIndicator, setPwdStrIndicator ] = useState(0)
 	const [ passwordEntropy, setPasswordEntropy ] = useState(0)
 	const [ passwordQuality, setPasswordQuality ] = useState('Poor')
+  
 
 	useEffect(()=>{
 		const entropy = passwordStrength(newPassword)
@@ -163,7 +165,10 @@ const ResetPasswordForm = ({afterSending, afterError}) => {
 
 		try {
 
-			const result = await sendNewPassword(newPassword, '', otgCode)
+      // Generate private and public keys
+			const [, publicKey] = generateKeyFromData({login: payload.login, email: payload.email, newPassword})
+
+			const result = await sendNewPassword(newPassword, publicKey, otgCode)
 
 			setNewPassword('')
 			setNewPasswordConfirm('')
@@ -200,15 +205,19 @@ const ResetPasswordForm = ({afterSending, afterError}) => {
 
 const ResetPassword = ()=>{
 
-	const [loading, setLoading] = useState(false)
-
 	const [showPasswordFields, setShowPasswordFields] = useState(false)
+  const [ userLogin, setUserLogin ] = useState('')
+  const [ userEmail, setUserEmail ] = useState('')
 
 	const history = useHistory()
 
-	async function handleSucessfullEmailSending(message){
+	async function handleSucessfullEmailSending(message, user){
 
 		toast.success(message, { autoClose: 5000 })
+
+    setUserEmail(user.email)
+
+    setUserLogin(user.login)
 
 		setShowPasswordFields(true)
 		
@@ -236,7 +245,7 @@ const ResetPassword = ()=>{
 
 	function switchRenderForm(condition) {
 		if(condition) {
-			return <ResetPasswordForm afterSending={handleSuccessfullPasswordChange} afterError={handleError}/>
+			return <ResetPasswordForm afterSending={handleSuccessfullPasswordChange} payload={{login: userLogin, email: userEmail}} afterError={handleError}/>
 		}
 		else{
 			return <EmailResetSendingForm afterSending={handleSucessfullEmailSending} afterError={handleError}/>
