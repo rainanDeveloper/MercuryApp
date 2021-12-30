@@ -1,7 +1,6 @@
 module.exports = {
     'env': {
-        'browser': true,
-        'es2021': true
+        'node': 'true',
     },
     'extends': [
         'eslint:recommended',
@@ -31,6 +30,7 @@ module.exports = {
         'semi': [
             'error',
             'always'
-        ]
-    }
+        ],
+        '@typescript-eslint/no-explicit-any': 'off',
+    },
 };

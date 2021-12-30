@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from 'sequelize';
 
-const config = require(__dirname + '/../config/config.js')
+import config from './../config/config.js';
 
-const sequelize = new Sequelize(config)
+const sequelize = new Sequelize(config);
 
-export {Sequelize, sequelize}
+export {Sequelize, sequelize};

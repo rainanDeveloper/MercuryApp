@@ -1,147 +1,143 @@
-import { Request, Response } from 'express'
-import { UserChat } from '@models/user_chat'
-import { Chat } from '@models/chat'
-import { User } from '@models/user'
-import { sequelize } from '@models/index'
-import { Op } from 'sequelize'
-import { Sequelize } from 'sequelize'
-import fs from 'fs'
+import { Request, Response } from 'express';
+import { UserChat } from '@models/user_chat';
+import { Chat } from '@models/chat';
+import { User } from '@models/user';
+import { sequelize } from '@models/index';
+import { Op } from 'sequelize';
+import { Sequelize } from 'sequelize';
 
-User.belongsToMany(Chat, { through: UserChat, foreignKey: 'userId' })
-Chat.belongsToMany(User, { through: UserChat, foreignKey: 'chatId' })
+User.belongsToMany(Chat, { through: UserChat, foreignKey: 'userId' });
+Chat.belongsToMany(User, { through: UserChat, foreignKey: 'chatId' });
 
 const ChatController = {
-	async store(request: Request, response: Response){
-		const {id: userId} = request['user']
+    async store(request: Request, response: Response){
+        const {id: userId} = request['user'];
 
-		const { login } = request.body
+        const { login } = request.body;
 
-		const toUser = await User.findOne({
-			where: {
-				[Op.or]: [
-					{
-						login
-					},
-					{
-						email: login
-					}
-				]
-			}
-		})
+        const toUser = await User.findOne({
+            where: {
+                [Op.or]: [
+                    {
+                        login
+                    },
+                    {
+                        email: login
+                    }
+                ]
+            }
+        });
 		
-		if(!toUser){
-			return response.status(404).json({
-				message: `Error: user ${login} not found!`
-			})
-		}
+        if(!toUser){
+            return response.status(404).json({
+                message: `Error: user ${login} not found!`
+            });
+        }
 
-		if(toUser.id==userId){
-			return response.status(400).json({
-				message: `User cannot create a chat with yourself!`
-			})
-		}
+        if(toUser.id==userId){
+            return response.status(400).json({
+                message: 'User cannot create a chat with yourself!'
+            });
+        }
 
-		const transaction = await sequelize.transaction()
+        const transaction = await sequelize.transaction();
 
-		try{
+        try{
 
-			const existentChat = await UserChat.findOne({
-				where: {
-					userId: {
-						[Op.in]: [
-							userId,
-							toUser.id
-						]
-					}
-				},
-				group: ['chatId'],
-				having: Sequelize.where(Sequelize.fn('COUNT', 'userId'), '2')
-			})
+            const existentChat = await UserChat.findOne({
+                where: {
+                    userId: {
+                        [Op.in]: [
+                            userId,
+                            toUser.id
+                        ]
+                    }
+                },
+                group: ['chatId'],
+                having: Sequelize.where(Sequelize.fn('COUNT', 'userId'), '2')
+            });
 	
-			if(existentChat){
-				throw new Error('Error during chat creation: chat already exists!')
-			}
+            if(existentChat){
+                throw new Error('Error during chat creation: chat already exists!');
+            }
 
-			const newChat = await Chat.create({})
+            const newChat = await Chat.create({});
 
-			await UserChat.create({
-				chatId: newChat.id,
-				userId
-			}, {
-				transaction
-			})
+            await UserChat.create({
+                chatId: newChat.id,
+                userId
+            }, {
+                transaction
+            });
 
-			await UserChat.create({
-				chatId: newChat.id,
-				userId: toUser.id
-			}, {
-				transaction
-			})
+            await UserChat.create({
+                chatId: newChat.id,
+                userId: toUser.id
+            }, {
+                transaction
+            });
 
-			await transaction.commit()
+            await transaction.commit();
 
-			await newChat.reload({
-				include: [
-					{
-						model: User,
-						where: {
-							id: {
-								[Op.ne]: userId
-							}
-						},
-						required: false,
-						attributes: ['id', 'login', 'email', 'avatar', 'public_key']
-					}
-				]
-			})
+            await newChat.reload({
+                include: [
+                    {
+                        model: User,
+                        where: {
+                            id: {
+                                [Op.ne]: userId
+                            }
+                        },
+                        required: false,
+                        attributes: ['id', 'login', 'email', 'avatar', 'public_key']
+                    }
+                ]
+            });
 
-			return response.json(newChat)
-		}
-		catch(error){
+            return response.json(newChat);
+        }
+        catch(error){
 
-			transaction.rollback()
+            transaction.rollback();
 
-			return response.status(500).json({
-				message: error.message||`Error while trying to create new conversation`,
-				error
-			})
-		}
-	},
-	async index(){
+            return response.status(500).json({
+                message: error.message||'Error while trying to create new conversation',
+                error
+            });
+        }
+    },
+    async show(request: Request, response: Response){
+        const {id} = request.params;
 
-	},
-	async show(request: Request, response: Response){
-		const {id} = request.params
+        const {id: userId} = request['user'];
 
-		const {id: userId} = request['user']
+        const chat = await Chat.findOne({
+            where: {
+                id
+            },
+            include: [
+                {
+                    model: User,
+                    where: {
+                        id: {
+                            [Op.ne]: userId
+                        }
+                    },
+                    required: false,
+                    attributes: ['id', 'login', 'email', 'avatar', 'public_key']
+                }
+            ]
+        });
 
-		const chat = await Chat.findOne({
-			where: {
-				id
-			},
-			include: [
-				{
-					model: User,
-					where: {
-						id: {
-							[Op.ne]: userId
-						}
-					},
-					required: false,
-					attributes: ['id', 'login', 'email', 'avatar', 'public_key']
-				}
-			]
-		})
+        if(chat){
+            return response.json(chat);
+        }
+        else{
+            return response.status(404).json({
+                message: `Chat ${id} not found!`
+            });
+        }
+    }
+};
 
-		if(chat){
-			return response.json(chat)
-		}
-		else{
-			return response.status(404).json({
-				message: `Chat ${id} not found!`
-			})
-		}
-	}
-}
-
-export {ChatController}
+export {ChatController};

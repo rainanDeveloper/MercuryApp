@@ -1,7 +1,9 @@
-import { sign, verify } from 'jsonwebtoken'
-require('dotenv').config({
-	path: '.env'
-})
+import { sign, verify } from 'jsonwebtoken';
+import { config } from 'dotenv';
+
+config({
+    path: '.env',
+});
 
 interface ITokenDefinitions {
 	secret?: string
@@ -9,27 +11,27 @@ interface ITokenDefinitions {
 }
 
 class JWToken {
-	private secret: string =  process.env.APP_SECRET || ''
-	private expiresIn: string = process.env.TOKEN_EXPIRATION || '1d'
+    private secret: string =  process.env.APP_SECRET || '';
+    private expiresIn: string = process.env.TOKEN_EXPIRATION || '1d';
 
-	constructor({secret, expiration}: ITokenDefinitions){
-		if(secret){
-			this.secret = secret
-		}
+    constructor({secret, expiration}: ITokenDefinitions){
+        if(secret){
+            this.secret = secret;
+        }
 
-		if(expiration){
-			this.expiresIn = expiration
-		}
+        if(expiration){
+            this.expiresIn = expiration;
+        }
 
-	}
+    }
 
-	createToken(payload){
-		return sign(payload, this.secret, {expiresIn: this.expiresIn})
-	}
+    createToken(payload){
+        return sign(payload, this.secret, {expiresIn: this.expiresIn});
+    }
 
-	validateToken(token){
-		return verify(token, this.secret)
-	}
+    validateToken(token){
+        return verify(token, this.secret);
+    }
 }
 
-export {JWToken}
+export {JWToken};

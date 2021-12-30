@@ -1,9 +1,8 @@
-'use strict'
-import { DataTypes, Model, Optional } from 'sequelize'
-import {sequelize} from '.'
-import { hash, compare } from 'bcrypt'
-import { Chat, IChatInstance } from './chat'
-import { UserChat } from './user_chat'
+'use strict';
+import { DataTypes, Model, Optional } from 'sequelize';
+import {sequelize} from '.';
+import { hash, compare } from 'bcrypt';
+import { IChatInstance } from './chat';
 
 interface IUserAttributes {
 	id: number
@@ -15,64 +14,64 @@ interface IUserAttributes {
 	status?: number
 }
 
-interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
+type IUserCreationAttributes = Optional<IUserAttributes, 'id'>
 
 interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>, IUserAttributes {
 	createdAt?: Date
 	updatedAt?: Date
 	newChat: IChatInstance
-	validatePassword: Function
+	validatePassword: (...args:any[]) => any
 }
 
 const User = sequelize.define<IUserInstance>(
-	'User',
-	{
-		id: {
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-			primaryKey: true,
-			allowNull: false
-		},
-		login: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			unique: true
-		},
-		password: {
-			type: DataTypes.VIRTUAL
-		},
-		password_hash: {
-			type: DataTypes.STRING
-		},
-		public_key: {
-			type: DataTypes.STRING,
-			allowNull: false
-		},
-		email: {
-			type: DataTypes.STRING,	
-			allowNull: false,
-			unique: true
-		},
-		status: {
-			type: DataTypes.TINYINT,
-			allowNull: false,
-			defaultValue: 0
-		}
-	},
-	{
-		tableName: 'users',
-		hooks: {
-			beforeSave: async (user: IUserInstance) => {
-				if(user.password){
-					user.password_hash = await hash( user.password, 8)
-				}
-			}
-		}
-	}
-)
+    'User',
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        login: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        password: {
+            type: DataTypes.VIRTUAL
+        },
+        password_hash: {
+            type: DataTypes.STRING
+        },
+        public_key: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,	
+            allowNull: false,
+            unique: true
+        },
+        status: {
+            type: DataTypes.TINYINT,
+            allowNull: false,
+            defaultValue: 0
+        }
+    },
+    {
+        tableName: 'users',
+        hooks: {
+            beforeSave: async (user: IUserInstance) => {
+                if(user.password){
+                    user.password_hash = await hash( user.password, 8);
+                }
+            }
+        }
+    }
+);
 
 User.prototype.validatePassword = function(password: string){
-	return compare(password, this.password_hash)
-}
+    return compare(password, this.password_hash);
+};
 
-export {User, IUserInstance}
+export {User, IUserInstance};
