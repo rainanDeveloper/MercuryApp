@@ -66,7 +66,11 @@ const sendResetEmail = async (request: Request, response: Response) => {
         mailer.sendTemplateEmail(message);
     
         return response.json({
-            message: 'Email sended'
+            message: 'Email sended',
+            userInfo: {
+                email: userToRecover.email,
+                login: userToRecover.login,
+            }
         });
     }
     catch(error){
